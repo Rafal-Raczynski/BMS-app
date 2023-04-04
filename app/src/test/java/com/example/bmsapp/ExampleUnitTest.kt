@@ -1,4 +1,4 @@
-package com.example.bms_app
+package com.example.bmsapp
 
 import org.junit.Test
 
