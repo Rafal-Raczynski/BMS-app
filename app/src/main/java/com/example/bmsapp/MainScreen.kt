@@ -1,10 +1,17 @@
 package com.example.bmsapp
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -18,15 +25,21 @@ fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
-    ) {
-        BottomNavGraph(navController = navController)
+    ) //{
+        //BottomNavGraph(navController = navController)
 
+    //}
+    {
+    padding ->
+    Column(modifier = Modifier.padding(padding)) {
+        BottomNavGraph(navController)
     }
 }
+}
+
 
 @Composable
 fun BottomBar(navController: NavHostController) {
-
     val screens = listOf(
         BottomBarScreen.Bluetooth,
         BottomBarScreen.Status,
@@ -34,8 +47,10 @@ fun BottomBar(navController: NavHostController) {
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val bottomBarDestination = screens.any{it.route==currentDestination?.route}
-    if(bottomBarDestination) {
+    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+
+
+    if (bottomBarDestination) {
         BottomNavigation {
             screens.forEach { screen ->
                 AddItem(
@@ -46,8 +61,8 @@ fun BottomBar(navController: NavHostController) {
             }
         }
     }
-
 }
+
 
 @Composable
 fun RowScope.AddItem(
@@ -73,7 +88,7 @@ fun RowScope.AddItem(
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
                 {
-                    saveState=true
+                    saveState = true
                 }
                 launchSingleTop = true
                 restoreState = true

@@ -13,7 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Power
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmsapp.screens.Data
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -35,7 +35,7 @@ fun InfoCardsList(list: List<Data>) {
         columns = GridCells.Fixed(2),
         modifier = Modifier
             .padding(10.dp)
-
+        //.verticalScroll(rememberScrollState())
     ) {
         itemsIndexed(items = list) { _, item ->
             InfoItem(item)
@@ -90,10 +90,22 @@ fun InfoItem(data: Data) {
 
 }
 
-val dupa = Data("Current", "12A", Icons.Default.ElectricBolt)
+val dataLists = listOf(
+    Data("Health", "hovno", Icons.Outlined.HealthAndSafety),
+    Data("Temperature", "hovno", Icons.Outlined.Thermostat),
+    Data("Source", "hovno", Icons.Outlined.Cable),
+    Data("Status", "hovno", Icons.Outlined.Power),
+    Data("Technologie", "hovno", Icons.Outlined.Memory),
+    Data("Voltage", "hovno", Icons.Outlined.Bolt),
+    Data("Technologie", "hovno", Icons.Outlined.Memory),
+    Data("Voltage", "hovno", Icons.Outlined.Bolt), Data("Status", "hovno", Icons.Outlined.Power),
+    Data("Technologie", "hovno", Icons.Outlined.Memory),Data("Voltage", "hovno", Icons.Outlined.Bolt),
+        Data("Technologie", "hovno", Icons.Outlined.Memory))
+
+
 
 @Preview
 @Composable
 fun InfoItemPreview() {
-    InfoItem(dupa)
+    InfoCardsList(dataLists)
 }

@@ -24,6 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bmsapp.R
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -49,6 +52,30 @@ fun StatusScreen() {
         InfoCardsList(list = dataList)
     }
 }
+/*@Composable
+fun StatusScreen() {
+    Surface(
+        modifier = Modifier
+            .padding(top = 35.dp)
+            .fillMaxWidth()
+    )
+    {
+        LazyColumn(modifier = Modifier.verticalScroll(rememberScrollState()))
+        {
+            item {
+                BatteryCircleProgress(
+                    percentage = 10,
+                    fillColor = MaterialTheme.colors.primary,
+                    backgroundColor = Color.LightGray,
+                    strokeWidth = 15.dp
+                )
+            }
+
+            item { InfoCardsList(dataList) }
+        }
+
+    }
+}*/
 
 @Preview
 @Composable
@@ -65,4 +92,6 @@ val dataList = listOf(
     Data("Voltage", "hovno", Icons.Outlined.Bolt),
     Data("Technologie", "hovno", Icons.Outlined.Memory),
     Data("Voltage", "hovno", Icons.Outlined.Bolt),
+    Data("Technologie", "hovno", Icons.Outlined.Memory),
+    Data("Voltage", "hovno", Icons.Outlined.Bolt)
 )
