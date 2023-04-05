@@ -20,11 +20,13 @@ fun MainScreen() {
         bottomBar = { BottomBar(navController = navController) }
     ) {
         BottomNavGraph(navController = navController)
+
     }
 }
 
 @Composable
 fun BottomBar(navController: NavHostController) {
+
     val screens = listOf(
         BottomBarScreen.Bluetooth,
         BottomBarScreen.Status,
@@ -32,16 +34,19 @@ fun BottomBar(navController: NavHostController) {
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-
-    BottomNavigation {
-        screens.forEach { screen ->
-            AddItem(
-                screen = screen,
-                currentDestination = currentDestination,
-                navController = navController
-            )
+    val bottomBarDestination = screens.any{it.route==currentDestination?.route}
+    if(bottomBarDestination) {
+        BottomNavigation {
+            screens.forEach { screen ->
+                AddItem(
+                    screen = screen,
+                    currentDestination = currentDestination,
+                    navController = navController
+                )
+            }
         }
     }
+
 }
 
 @Composable
@@ -67,7 +72,11 @@ fun RowScope.AddItem(
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
+                {
+                    saveState=true
+                }
                 launchSingleTop = true
+                restoreState = true
             }
         }
     )
