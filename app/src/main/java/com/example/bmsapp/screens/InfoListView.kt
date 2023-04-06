@@ -1,15 +1,12 @@
 package com.example.bmsapp.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -27,6 +24,9 @@ import androidx.compose.ui.unit.sp
 import com.example.bmsapp.screens.Data
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.ui.draw.clip
+import com.example.bmsapp.ui.theme.gray900
+import com.example.bmsapp.ui.theme.taupe100
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -35,7 +35,8 @@ fun InfoCardsList(list: List<Data>) {
         columns = GridCells.Fixed(2),
         modifier = Modifier
             .padding(10.dp)
-        //.verticalScroll(rememberScrollState())
+
+
     ) {
         itemsIndexed(items = list) { _, item ->
             InfoItem(item)
@@ -51,11 +52,14 @@ fun InfoItem(data: Data) {
         modifier = Modifier
             .padding(10.dp)
             .fillMaxSize()
+
+
     ) {
         Column(
             modifier = Modifier
                 .padding(vertical = 20.dp)
                 .fillMaxSize()
+
         ) {
             Image(
                 imageVector = data.icon,
@@ -91,16 +95,16 @@ fun InfoItem(data: Data) {
 }
 
 val dataLists = listOf(
-    Data("Health", "hovno", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "hovno", Icons.Outlined.Thermostat),
-    Data("Source", "hovno", Icons.Outlined.Cable),
-    Data("Status", "hovno", Icons.Outlined.Power),
-    Data("Technologie", "hovno", Icons.Outlined.Memory),
-    Data("Voltage", "hovno", Icons.Outlined.Bolt),
-    Data("Technologie", "hovno", Icons.Outlined.Memory),
-    Data("Voltage", "hovno", Icons.Outlined.Bolt), Data("Status", "hovno", Icons.Outlined.Power),
-    Data("Technologie", "hovno", Icons.Outlined.Memory),Data("Voltage", "hovno", Icons.Outlined.Bolt),
-        Data("Technologie", "hovno", Icons.Outlined.Memory))
+    Data("Health", "Good", Icons.Outlined.HealthAndSafety),
+    Data("Temperature", "10C", Icons.Outlined.Thermostat),
+    Data("Source", "10V", Icons.Outlined.Cable),
+    Data("Status", "5", Icons.Outlined.Power),
+    Data("Energy", "1,5mAh", Icons.Outlined.Memory),
+    Data("Voltage", "5V", Icons.Outlined.Bolt),
+    Data("Technologie", "siuu", Icons.Outlined.Memory),
+    Data("Voltage", "66", Icons.Outlined.Bolt), Data("Status", "hovno", Icons.Outlined.Power),
+    Data("Technologie", "aaa", Icons.Outlined.Memory),Data("Voltage", "hovno", Icons.Outlined.Bolt),
+        Data("Technologie", "aaa", Icons.Outlined.Memory))
 
 
 

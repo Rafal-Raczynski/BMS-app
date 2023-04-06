@@ -31,7 +31,7 @@ private val LightColorPalette = lightColors(
     primary = gray900,
     secondary = rust600,
     background = taupe100,
-    surface = Color.White.copy(alpha = .85f),
+    //surface = Color.White.copy(alpha = .85f), trzeba zakomnetować żeby ładnie wyswietlalo nwm czemu
     onPrimary = Color.White,
     onSecondary = Color.White,
     onBackground = taupe800,

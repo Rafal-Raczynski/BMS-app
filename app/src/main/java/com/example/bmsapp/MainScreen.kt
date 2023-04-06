@@ -25,10 +25,7 @@ fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
-    ) //{
-        //BottomNavGraph(navController = navController)
-
-    //}
+    )
     {
     padding ->
     Column(modifier = Modifier.padding(padding)) {

@@ -17,13 +17,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BMSappTheme{
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                )
-                {
+                //Surface(
+                  //  modifier = Modifier.fillMaxSize(),
+                  //  color = MaterialTheme.colors.background
+                //)
+                //{
                     MainScreen()
-                }
+                //}
             }
         }
     }

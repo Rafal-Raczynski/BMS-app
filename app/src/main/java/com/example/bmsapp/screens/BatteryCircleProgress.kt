@@ -2,11 +2,13 @@ package com.example.bmsapp.screens
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.OfflineBolt
 import androidx.compose.material.icons.rounded.OfflineBolt
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.cos
+import com.example.bmsapp.ui.theme.*
 
 @Composable
 fun BatteryCircleProgress(
@@ -32,7 +35,7 @@ fun BatteryCircleProgress(
     strokeWidth: Dp
 ) {
 
-    Box {
+    Box (modifier=modifier.background(color= taupe100)){
         Canvas(
             modifier = modifier
                 .size(200.dp)

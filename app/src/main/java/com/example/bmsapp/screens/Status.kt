@@ -39,8 +39,9 @@ fun StatusScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         Surface(
             modifier = Modifier
-                .padding(top = 35.dp)
-                .fillMaxWidth()
+               .padding(top = 35.dp)
+               .fillMaxWidth()
+
         ) {
             BatteryCircleProgress(
                 percentage = 10,
@@ -52,30 +53,7 @@ fun StatusScreen() {
         InfoCardsList(list = dataList)
     }
 }
-/*@Composable
-fun StatusScreen() {
-    Surface(
-        modifier = Modifier
-            .padding(top = 35.dp)
-            .fillMaxWidth()
-    )
-    {
-        LazyColumn(modifier = Modifier.verticalScroll(rememberScrollState()))
-        {
-            item {
-                BatteryCircleProgress(
-                    percentage = 10,
-                    fillColor = MaterialTheme.colors.primary,
-                    backgroundColor = Color.LightGray,
-                    strokeWidth = 15.dp
-                )
-            }
 
-            item { InfoCardsList(dataList) }
-        }
-
-    }
-}*/
 
 @Preview
 @Composable
@@ -84,14 +62,14 @@ fun PreviewBatteryScreen() {
 }
 
 val dataList = listOf(
-    Data("Health", "hovno", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "hovno", Icons.Outlined.Thermostat),
-    Data("Source", "hovno", Icons.Outlined.Cable),
-    Data("Status", "hovno", Icons.Outlined.Power),
-    Data("Technologie", "hovno", Icons.Outlined.Memory),
-    Data("Voltage", "hovno", Icons.Outlined.Bolt),
-    Data("Technologie", "hovno", Icons.Outlined.Memory),
-    Data("Voltage", "hovno", Icons.Outlined.Bolt),
-    Data("Technologie", "hovno", Icons.Outlined.Memory),
-    Data("Voltage", "hovno", Icons.Outlined.Bolt)
+    Data("Health", "good", Icons.Outlined.HealthAndSafety),
+    Data("Temperature", "10C", Icons.Outlined.Thermostat),
+    Data("Source", "5", Icons.Outlined.Cable),
+    Data("Status", "siuu", Icons.Outlined.Power),
+    Data("Energy", "60Ah", Icons.Outlined.Memory),
+    Data("Voltage", "5V", Icons.Outlined.Bolt),
+    Data("Technologie", "goood", Icons.Outlined.Memory),
+    Data("Voltage", "87V", Icons.Outlined.Bolt),
+    Data("Technologie", "aaa", Icons.Outlined.Memory),
+    Data("Voltage", "aaa", Icons.Outlined.Bolt)
 )
