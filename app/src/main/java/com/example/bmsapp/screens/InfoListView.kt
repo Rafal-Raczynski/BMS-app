@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import com.example.bmsapp.ui.theme.gray900
 import com.example.bmsapp.ui.theme.taupe100
 
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun InfoCardsList(list: List<Data>) {
@@ -52,6 +53,7 @@ fun InfoItem(data: Data) {
         modifier = Modifier
             .padding(10.dp)
             .fillMaxSize()
+            //, backgroundColor = Color.White tu zmieniamy kolor tła karty
 
 
     ) {
@@ -60,6 +62,7 @@ fun InfoItem(data: Data) {
                 .padding(vertical = 20.dp)
                 .fillMaxSize()
 
+
         ) {
             Image(
                 imageVector = data.icon,
@@ -67,6 +70,7 @@ fun InfoItem(data: Data) {
                 colorFilter = ColorFilter.tint(Color.DarkGray),
                 modifier = Modifier
                     .size(50.dp, 50.dp)
+                    //.size(20.dp, 20.dp)
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally)
             )
@@ -75,6 +79,7 @@ fun InfoItem(data: Data) {
             Text(
                 text = data.label,
                 color = Color.Gray,
+                //fontSize = 12.sp,
                 fontSize = 12.sp,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
@@ -84,6 +89,7 @@ fun InfoItem(data: Data) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.DarkGray,
+                //fontSize = 18.sp,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)

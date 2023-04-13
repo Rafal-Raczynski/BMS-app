@@ -1,19 +1,11 @@
 package com.example.bmsapp.screens
 
 import android.hardware.BatteryState
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,33 +17,51 @@ import androidx.compose.ui.unit.dp
 import com.example.bmsapp.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.toSize
 import com.example.bmsapp.screens.InfoCardsList
 
 
 @Composable
 fun StatusScreen() {
+    var a :String
+    var percentage:Int
     Column(modifier = Modifier.fillMaxSize()) {
+        a=dropDownMenu()
+        percentage = when(a) {
+            "dataList"-> 10
+            "dataList1"-> 70
+            else -> 0
+        }
         Surface(
             modifier = Modifier
-               .padding(top = 35.dp)
-               .fillMaxWidth()
+                .padding(top = 35.dp)
+                .fillMaxWidth()
 
         ) {
             BatteryCircleProgress(
-                percentage = 10,
+                percentage = percentage,
                 fillColor = MaterialTheme.colors.primary,
                 backgroundColor = Color.LightGray,
                 strokeWidth = 15.dp
             )
         }
-        InfoCardsList(list = dataList)
+        when(a) {
+            "dataList"->InfoCardsList(list = dataList)
+            "dataList1"->InfoCardsList(list = dataList1)
+        }
+       // InfoCardsList(list = dataList)
     }
+
 }
 
 
@@ -73,3 +83,82 @@ val dataList = listOf(
     Data("Technologie", "aaa", Icons.Outlined.Memory),
     Data("Voltage", "aaa", Icons.Outlined.Bolt)
 )
+
+val dataList1 = listOf(
+    Data("1", "1", Icons.Outlined.HealthAndSafety),
+    Data("Temperature", "10C", Icons.Outlined.Thermostat),
+    Data("Source", "5", Icons.Outlined.Cable),
+    Data("Status", "siuu", Icons.Outlined.Power),
+    Data("Energy", "60Ah", Icons.Outlined.Memory),
+    Data("Voltage", "5V", Icons.Outlined.Bolt),
+    Data("Technologie", "goood", Icons.Outlined.Memory),
+    Data("Voltage", "87V", Icons.Outlined.Bolt),
+    Data("Technologie", "aaa", Icons.Outlined.Memory),
+    Data("Voltage", "aaa", Icons.Outlined.Bolt)
+)
+@Composable
+fun dropDownMenu(): String {
+
+    var expanded by remember { mutableStateOf(false) }
+    val suggestions = listOf("dataList","dataList1")
+    var selectedText by remember { mutableStateOf("dataList") }
+
+    var textfieldSize by remember { mutableStateOf(Size.Zero)}
+
+    val icon = if (expanded)
+        Icons.Filled.KeyboardArrowUp
+    else
+        Icons.Filled.KeyboardArrowDown
+
+
+    Column(Modifier.padding(0.dp)) {
+        Surface(
+            modifier = Modifier
+                .padding(top = 35.dp)
+                .fillMaxWidth()
+
+        ){
+            OutlinedTextField(
+                value = selectedText,
+                onValueChange = { selectedText = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onGloballyPositioned { coordinates ->
+                        //This value is used to assign to the DropDown the same width
+                        textfieldSize = coordinates.size.toSize()
+
+                    },
+                //label = {Text("Label")},
+                trailingIcon = {
+                    Icon(icon,"contentDescription",
+                        Modifier.clickable { expanded = !expanded })
+                }, readOnly = true
+            )
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier
+                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
+                    .requiredSizeIn(maxHeight = 200.dp)
+
+            ) {
+                suggestions.forEach { label ->
+                    DropdownMenuItem(onClick = {
+                        selectedText = label
+                        expanded = false
+                    }) {
+                        Text(text = label)
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+    }
+    return selectedText
+}

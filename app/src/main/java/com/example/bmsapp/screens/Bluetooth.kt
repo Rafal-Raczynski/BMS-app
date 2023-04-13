@@ -36,6 +36,7 @@ fun BluetoothScreen() {
         )
 
     }
+
 }
 
 @Composable
