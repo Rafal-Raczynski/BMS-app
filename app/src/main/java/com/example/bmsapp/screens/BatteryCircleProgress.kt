@@ -31,11 +31,16 @@ import com.example.bmsapp.ui.theme.*
 fun BatteryCircleProgress(
     modifier: Modifier = Modifier,
     percentage: Int,
-    fillColor: Color,
     backgroundColor: Color,
     strokeWidth: Dp
 ) {
-
+    var fillColor=lightgreen
+    if(percentage in 11..39) {
+        fillColor = yellow
+    }
+    else if(percentage<=10){
+        fillColor = red
+    }
     Box (modifier=modifier.background(color= taupe100)){
         Canvas(
             modifier = modifier
@@ -107,7 +112,6 @@ fun BatteryCircleProgress(
 fun PreviewProgressBar() {
     BatteryCircleProgress(
         percentage = 10,
-        fillColor = Color(android.graphics.Color.parseColor("#4DB6AC")),
         backgroundColor = Color.DarkGray,
         strokeWidth = 10.dp
     )

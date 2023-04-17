@@ -37,6 +37,7 @@ import com.example.bmsapp.ui.theme.lightgreen
 @Composable
 fun StatusScreen() {
     var a :String
+
     var percentage:Int
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
@@ -62,7 +63,6 @@ fun StatusScreen() {
             ) {
                 BatteryCircleProgress(
                     percentage = percentage,
-                    fillColor = MaterialTheme.colors.primary,
                     backgroundColor = Color.LightGray,
                     strokeWidth = 15.dp
                 )
