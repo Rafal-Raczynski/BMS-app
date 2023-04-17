@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.draw.clip
 import com.example.bmsapp.ui.theme.gray900
+import com.example.bmsapp.ui.theme.lightgreen
 import com.example.bmsapp.ui.theme.taupe100
 
 
@@ -33,9 +34,11 @@ import com.example.bmsapp.ui.theme.taupe100
 @Composable
 fun InfoCardsList(list: List<Data>) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(3),
         modifier = Modifier
             .padding(10.dp)
+            .height(600.dp)
+            //.fillMaxHeight()
 
 
     ) {
@@ -67,7 +70,7 @@ fun InfoItem(data: Data) {
             Image(
                 imageVector = data.icon,
                 contentDescription = data.label,
-                colorFilter = ColorFilter.tint(Color.DarkGray),
+                colorFilter = ColorFilter.tint(lightgreen),
                 modifier = Modifier
                     .size(50.dp, 50.dp)
                     //.size(20.dp, 20.dp)

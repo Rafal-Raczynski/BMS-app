@@ -28,14 +28,16 @@ private val LightColorPalette = lightColors(
     */
 //)
 private val LightColorPalette = lightColors(
-    primary = gray900,
+    //primary = gray900,
+        primary = lightgreen,
     secondary = rust600,
     background = taupe100,
     //surface = Color.White.copy(alpha = .85f), trzeba zakomnetować żeby ładnie wyswietlalo nwm czemu
-    onPrimary = Color.White,
-    onSecondary = Color.White,
+    onPrimary = darkgreen,
+    onSecondary = darkgreen,
     onBackground = taupe800,
-    onSurface = gray900.copy(alpha = 0.8f)
+    //onSurface = gray900.copy(alpha = 0.8f)
+        onSurface = gray900.copy(alpha = 0.8f)
 )
 
 private val DarkColorPalette = darkColors(

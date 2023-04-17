@@ -3,6 +3,7 @@ package com.example.bmsapp.screens
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -38,7 +39,7 @@ fun BatteryCircleProgress(
     Box (modifier=modifier.background(color= taupe100)){
         Canvas(
             modifier = modifier
-                .size(200.dp)
+                .size(180.dp)
                 .padding(10.dp)
                 .align(Alignment.Center)
         ) {

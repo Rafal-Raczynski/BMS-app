@@ -18,6 +18,7 @@ import com.example.bmsapp.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -29,39 +30,49 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.example.bmsapp.screens.InfoCardsList
+import com.example.bmsapp.ui.theme.darkgreen
+import com.example.bmsapp.ui.theme.lightgreen
 
 
 @Composable
 fun StatusScreen() {
     var a :String
     var percentage:Int
+    val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
-        a=dropDownMenu()
-        percentage = when(a) {
-            "dataList"-> 10
-            "dataList1"-> 70
+        a = dropDownMenu()
+        percentage = when (a) {
+            "dataList" -> 10
+            "dataList1" -> 70
             else -> 0
         }
-        Surface(
-            modifier = Modifier
-                .padding(top = 35.dp)
-                .fillMaxWidth()
+        Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState)) {
+          //  a = dropDownMenu()
+           // percentage = when (a) {
+            //    "dataList" -> 10
+             //   "dataList1" -> 70
+             //   else -> 0
+           // }
+            Surface(
+                modifier = Modifier
+                    .padding(top = 35.dp)
+                    .fillMaxWidth()
 
-        ) {
-            BatteryCircleProgress(
-                percentage = percentage,
-                fillColor = MaterialTheme.colors.primary,
-                backgroundColor = Color.LightGray,
-                strokeWidth = 15.dp
-            )
+            ) {
+                BatteryCircleProgress(
+                    percentage = percentage,
+                    fillColor = MaterialTheme.colors.primary,
+                    backgroundColor = Color.LightGray,
+                    strokeWidth = 15.dp
+                )
+            }
+            when (a) {
+                "dataList" -> InfoCardsList(list = dataList)
+                "dataList1" -> InfoCardsList(list = dataList1)
+            }
+            // InfoCardsList(list = dataList)
         }
-        when(a) {
-            "dataList"->InfoCardsList(list = dataList)
-            "dataList1"->InfoCardsList(list = dataList1)
-        }
-       // InfoCardsList(list = dataList)
     }
-
 }
 
 
@@ -111,28 +122,34 @@ fun dropDownMenu(): String {
         Icons.Filled.KeyboardArrowDown
 
 
-    Column(Modifier.padding(0.dp)) {
-        Surface(
-            modifier = Modifier
-                .padding(top = 35.dp)
-                .fillMaxWidth()
+    Column(Modifier.padding(start = 25.dp,end=25.dp)) {
+       // Surface(
+          //  modifier = Modifier
+          //      .padding(top = 35.dp)
+          //      .fillMaxWidth()
 
-        ){
-            OutlinedTextField(
+        //){
+            TextField(
                 value = selectedText,
-                onValueChange = { selectedText = it },
+                onValueChange = { selectedText = it },colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.White, textColor = darkgreen),
                 modifier = Modifier
+                    .padding(top = 35.dp)
                     .fillMaxWidth()
+                    .background(Color.White)
+
+                    .clickable{ expanded = !expanded }
                     .onGloballyPositioned { coordinates ->
                         //This value is used to assign to the DropDown the same width
                         textfieldSize = coordinates.size.toSize()
+
 
                     },
                 //label = {Text("Label")},
                 trailingIcon = {
                     Icon(icon,"contentDescription",
                         Modifier.clickable { expanded = !expanded })
-                }, readOnly = true
+                }, readOnly = true,enabled=false
             )
             DropdownMenu(
                 expanded = expanded,
@@ -147,11 +164,11 @@ fun dropDownMenu(): String {
                         selectedText = label
                         expanded = false
                     }) {
-                        Text(text = label)
+                       Text(text = label,color= lightgreen)
                     }
                 }
             }
-        }
+       // }
 
 
 
