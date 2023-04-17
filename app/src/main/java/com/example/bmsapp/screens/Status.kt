@@ -42,17 +42,18 @@ fun StatusScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
         a = dropDownMenu()
         percentage = when (a) {
-            "dataList" -> 10
-            "dataList1" -> 70
+            "Bateria1" -> 10
+            "Bateria2" -> 70
+            "Bateria3" -> 45
             else -> 0
         }
         Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState)) {
-          //  a = dropDownMenu()
-           // percentage = when (a) {
+            //  a = dropDownMenu()
+            // percentage = when (a) {
             //    "dataList" -> 10
-             //   "dataList1" -> 70
-             //   else -> 0
-           // }
+            //   "dataList1" -> 70
+            //   else -> 0
+            // }
             Surface(
                 modifier = Modifier
                     .padding(top = 35.dp)
@@ -67,8 +68,9 @@ fun StatusScreen() {
                 )
             }
             when (a) {
-                "dataList" -> InfoCardsList(list = dataList)
-                "dataList1" -> InfoCardsList(list = dataList1)
+                "Bateria1" -> InfoCardsList(list = dataList)
+                "Bateria2" -> InfoCardsList(list = dataList1)
+                "Bateria3" -> InfoCardsList(list = dataList2)
             }
             // InfoCardsList(list = dataList)
         }
@@ -84,7 +86,7 @@ fun PreviewBatteryScreen() {
 
 val dataList = listOf(
     Data("Health", "good", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10C", Icons.Outlined.Thermostat),
+    Data("Temperature", "10°C", Icons.Outlined.Thermostat),
     Data("Source", "5", Icons.Outlined.Cable),
     Data("Status", "siuu", Icons.Outlined.Power),
     Data("Energy", "60Ah", Icons.Outlined.Memory),
@@ -97,7 +99,7 @@ val dataList = listOf(
 
 val dataList1 = listOf(
     Data("1", "1", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10C", Icons.Outlined.Thermostat),
+    Data("Temperature", "10°C", Icons.Outlined.Thermostat),
     Data("Source", "5", Icons.Outlined.Cable),
     Data("Status", "siuu", Icons.Outlined.Power),
     Data("Energy", "60Ah", Icons.Outlined.Memory),
@@ -107,12 +109,25 @@ val dataList1 = listOf(
     Data("Technologie", "aaa", Icons.Outlined.Memory),
     Data("Voltage", "aaa", Icons.Outlined.Bolt)
 )
+
+val dataList2 = listOf(
+    Data("Health", "moderate", Icons.Outlined.HealthAndSafety),
+    Data("Temperature", "22°C", Icons.Outlined.Thermostat),
+    Data("Source", "5", Icons.Outlined.Cable),
+    Data("Status", "pachul", Icons.Outlined.Power),
+    Data("Energy", "60Ah", Icons.Outlined.Memory),
+    Data("Voltage", "5V", Icons.Outlined.Bolt),
+    Data("Technologie", "goood", Icons.Outlined.Memory),
+    Data("Voltage", "55V", Icons.Outlined.Bolt),
+    Data("Technologie", "nwm", Icons.Outlined.Memory),
+    Data("Voltage", "spk", Icons.Outlined.Bolt)
+)
 @Composable
 fun dropDownMenu(): String {
 
     var expanded by remember { mutableStateOf(false) }
-    val suggestions = listOf("dataList","dataList1")
-    var selectedText by remember { mutableStateOf("dataList") }
+    val suggestions = listOf("Bateria1","Bateria2","Bateria3")
+    var selectedText by rememberSaveable { mutableStateOf("Bateria1") }
 
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
 
@@ -123,52 +138,52 @@ fun dropDownMenu(): String {
 
 
     Column(Modifier.padding(start = 25.dp,end=25.dp)) {
-       // Surface(
-          //  modifier = Modifier
-          //      .padding(top = 35.dp)
-          //      .fillMaxWidth()
+        // Surface(
+        //  modifier = Modifier
+        //      .padding(top = 35.dp)
+        //      .fillMaxWidth()
 
         //){
-            TextField(
-                value = selectedText,
-                onValueChange = { selectedText = it },colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White, textColor = darkgreen),
-                modifier = Modifier
-                    .padding(top = 35.dp)
-                    .fillMaxWidth()
-                    .background(Color.White)
+        TextField(
+            value = selectedText,
+            onValueChange = { selectedText = it },colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White, textColor = darkgreen),
+            modifier = Modifier
+                .padding(top = 35.dp)
+                .fillMaxWidth()
+                .background(Color.White)
 
-                    .clickable{ expanded = !expanded }
-                    .onGloballyPositioned { coordinates ->
-                        //This value is used to assign to the DropDown the same width
-                        textfieldSize = coordinates.size.toSize()
+                .clickable{ expanded = !expanded }
+                .onGloballyPositioned { coordinates ->
+                    //This value is used to assign to the DropDown the same width
+                    textfieldSize = coordinates.size.toSize()
 
 
-                    },
-                //label = {Text("Label")},
-                trailingIcon = {
-                    Icon(icon,"contentDescription",
-                        Modifier.clickable { expanded = !expanded })
-                }, readOnly = true,enabled=false
-            )
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                    .requiredSizeIn(maxHeight = 200.dp)
+                },
+            //label = {Text("Label")},
+            trailingIcon = {
+                Icon(icon,"contentDescription",
+                    Modifier.clickable { expanded = !expanded })
+            }, readOnly = true,enabled=false
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
+                .requiredSizeIn(maxHeight = 200.dp)
 
-            ) {
-                suggestions.forEach { label ->
-                    DropdownMenuItem(onClick = {
-                        selectedText = label
-                        expanded = false
-                    }) {
-                       Text(text = label,color= lightgreen)
-                    }
+        ) {
+            suggestions.forEach { label ->
+                DropdownMenuItem(onClick = {
+                    selectedText = label
+                    expanded = false
+                }) {
+                    Text(text = label,color= lightgreen)
                 }
             }
-       // }
+        }
+        // }
 
 
 
