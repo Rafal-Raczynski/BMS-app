@@ -81,16 +81,10 @@ fun PreviewBatteryScreen() {
 }
 
 val dataList = listOf(
-    Data("Health", "good", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10°C", Icons.Outlined.Thermostat),
-    Data("Source", "5", Icons.Outlined.Cable),
-    Data("Status", "siuu", Icons.Outlined.Power),
-    Data("Energy", "60Ah", Icons.Outlined.Memory),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "goood", Icons.Outlined.Memory),
-    Data("Voltage", "87V", Icons.Outlined.Bolt),
-    Data("Technologie", "aaa", Icons.Outlined.Memory),
-    Data("Voltage", "aaa", Icons.Outlined.Bolt)
+    Data("No. of cells", "15", Icons.Outlined.ChargingStation),
+    Data("Status", "ON", Icons.Outlined.Power),
+    Data("Voltage", "100 V", Icons.Outlined.BatteryChargingFull),
+    Data("Current", "2 A", Icons.Outlined.Bolt),
 )
 /*@Composable
 fun dropDownMenu(): String {

@@ -34,7 +34,7 @@ import com.example.bmsapp.ui.theme.taupe100
 @Composable
 fun InfoCardsList(list: List<Data>) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Fixed(2),
         modifier = Modifier
             .padding(10.dp)
             .height(600.dp)

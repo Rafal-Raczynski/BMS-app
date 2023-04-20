@@ -81,42 +81,30 @@ fun PreviewDetailsScreen() {
 }
 
 val dataList3 = listOf(
-    Data("Health", "good", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10°C", Icons.Outlined.Thermostat),
-    Data("Source", "5", Icons.Outlined.Cable),
-    Data("Status", "siuu", Icons.Outlined.Power),
+    Data("Status", "ON", Icons.Outlined.Power),
     Data("Energy", "60Ah", Icons.Outlined.Memory),
+    Data("Temperature", "24°C", Icons.Outlined.Thermostat),
     Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "goood", Icons.Outlined.Memory),
-    Data("Voltage", "87V", Icons.Outlined.Bolt),
-    Data("Technologie", "aaa", Icons.Outlined.Memory),
-    Data("Voltage", "aaa", Icons.Outlined.Bolt)
+    Data("Health", "good", Icons.Outlined.HealthAndSafety),
+    Data("Voltage", "60V", Icons.Outlined.Bolt)
 )
 
 val dataList4 = listOf(
-    Data("1", "1", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10°C", Icons.Outlined.Thermostat),
-    Data("Source", "5", Icons.Outlined.Cable),
-    Data("Status", "siuu", Icons.Outlined.Power),
+    Data("Status", "ERROR", Icons.Outlined.Power),
     Data("Energy", "60Ah", Icons.Outlined.Memory),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "goood", Icons.Outlined.Memory),
-    Data("Voltage", "87V", Icons.Outlined.Bolt),
-    Data("Technologie", "aaa", Icons.Outlined.Memory),
-    Data("Voltage", "aaa", Icons.Outlined.Bolt)
+    Data("Temperature", "75°C", Icons.Outlined.Thermostat),
+    Data("Voltage", "2V", Icons.Outlined.Bolt),
+    Data("Health", "bad", Icons.Outlined.HealthAndSafety),
+    Data("Voltage", "22V", Icons.Outlined.Bolt)
 )
 
 val dataList5 = listOf(
-    Data("Health", "moderate", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "22°C", Icons.Outlined.Thermostat),
-    Data("Source", "5", Icons.Outlined.Cable),
-    Data("Status", "pachul", Icons.Outlined.Power),
+    Data("Status", "OFF", Icons.Outlined.Power),
     Data("Energy", "60Ah", Icons.Outlined.Memory),
+    Data("Temperature", "10°C", Icons.Outlined.Thermostat),
     Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "goood", Icons.Outlined.Memory),
-    Data("Voltage", "55V", Icons.Outlined.Bolt),
-    Data("Technologie", "nwm", Icons.Outlined.Memory),
-    Data("Voltage", "spk", Icons.Outlined.Bolt)
+    Data("Health", "good", Icons.Outlined.HealthAndSafety),
+    Data("Voltage", "88V", Icons.Outlined.Bolt)
 )
 @Composable
 fun dropDownDetailsMenu(): String {
