@@ -41,13 +41,11 @@ fun StatusScreen() {
     var percentage:Int
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
-        a = dropDownMenu()
-        percentage = when (a) {
-            "Bateria1" -> 10
-            "Bateria2" -> 70
-            "Bateria3" -> 45
+        //a = dropDownMenu()
+        percentage = 85 /*when (a) {
+            "Bateria1" -> 85
             else -> 0
-        }
+        }*/
         Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState)) {
             //  a = dropDownMenu()
             // percentage = when (a) {
@@ -67,12 +65,10 @@ fun StatusScreen() {
                     strokeWidth = 15.dp
                 )
             }
-            when (a) {
+            /*when (a) {
                 "Bateria1" -> InfoCardsList(list = dataList)
-                "Bateria2" -> InfoCardsList(list = dataList1)
-                "Bateria3" -> InfoCardsList(list = dataList2)
-            }
-            // InfoCardsList(list = dataList)
+            }*/
+            InfoCardsList(list = dataList)
         }
     }
 }
@@ -96,37 +92,11 @@ val dataList = listOf(
     Data("Technologie", "aaa", Icons.Outlined.Memory),
     Data("Voltage", "aaa", Icons.Outlined.Bolt)
 )
-
-val dataList1 = listOf(
-    Data("1", "1", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10°C", Icons.Outlined.Thermostat),
-    Data("Source", "5", Icons.Outlined.Cable),
-    Data("Status", "siuu", Icons.Outlined.Power),
-    Data("Energy", "60Ah", Icons.Outlined.Memory),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "goood", Icons.Outlined.Memory),
-    Data("Voltage", "87V", Icons.Outlined.Bolt),
-    Data("Technologie", "aaa", Icons.Outlined.Memory),
-    Data("Voltage", "aaa", Icons.Outlined.Bolt)
-)
-
-val dataList2 = listOf(
-    Data("Health", "moderate", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "22°C", Icons.Outlined.Thermostat),
-    Data("Source", "5", Icons.Outlined.Cable),
-    Data("Status", "pachul", Icons.Outlined.Power),
-    Data("Energy", "60Ah", Icons.Outlined.Memory),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "goood", Icons.Outlined.Memory),
-    Data("Voltage", "55V", Icons.Outlined.Bolt),
-    Data("Technologie", "nwm", Icons.Outlined.Memory),
-    Data("Voltage", "spk", Icons.Outlined.Bolt)
-)
-@Composable
+/*@Composable
 fun dropDownMenu(): String {
 
     var expanded by remember { mutableStateOf(false) }
-    val suggestions = listOf("Bateria1","Bateria2","Bateria3")
+    val suggestions = listOf("Bateria1")
     var selectedText by rememberSaveable { mutableStateOf("Bateria1") }
 
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
@@ -188,9 +158,7 @@ fun dropDownMenu(): String {
 
 
 
-
-
-
     }
     return selectedText
 }
+*/
