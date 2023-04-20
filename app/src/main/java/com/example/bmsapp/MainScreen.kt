@@ -38,9 +38,9 @@ fun MainScreen() {
 @Composable
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
+        BottomBarScreen.Bluetooth,
         BottomBarScreen.Status,
         BottomBarScreen.Details,
-        BottomBarScreen.Bluetooth,
         BottomBarScreen.History,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

@@ -12,6 +12,12 @@ sealed class BottomBarScreen(
     val title: String,
     val icon: ImageVector
 ) {
+    object Bluetooth : BottomBarScreen(
+        route = "bluetooth",
+        title = "Bluetooth",
+        icon = Icons.Default.BluetoothSearching
+    )
+
     object Status : BottomBarScreen(
         route = "status",
         title = "Status",
@@ -22,12 +28,6 @@ sealed class BottomBarScreen(
         route = "details",
         title = "Details",
         icon = Icons.Default.ViewHeadline
-    )
-
-    object Bluetooth : BottomBarScreen(
-        route = "bluetooth",
-        title = "Bluetooth",
-        icon = Icons.Default.BluetoothSearching
     )
 
     object History : BottomBarScreen(

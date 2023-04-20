@@ -84,27 +84,24 @@ val dataList3 = listOf(
     Data("Status", "ON", Icons.Outlined.Power),
     Data("Energy", "60Ah", Icons.Outlined.Memory),
     Data("Temperature", "24°C", Icons.Outlined.Thermostat),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Health", "good", Icons.Outlined.HealthAndSafety),
-    Data("Voltage", "60V", Icons.Outlined.Bolt)
+    Data("Voltage", "3.27 V", Icons.Outlined.Bolt),
+    Data("Health", "good", Icons.Outlined.HealthAndSafety)
 )
 
 val dataList4 = listOf(
     Data("Status", "ERROR", Icons.Outlined.Power),
-    Data("Energy", "60Ah", Icons.Outlined.Memory),
+    Data("Energy", "55Ah", Icons.Outlined.Memory),
     Data("Temperature", "75°C", Icons.Outlined.Thermostat),
-    Data("Voltage", "2V", Icons.Outlined.Bolt),
-    Data("Health", "bad", Icons.Outlined.HealthAndSafety),
-    Data("Voltage", "22V", Icons.Outlined.Bolt)
+    Data("Voltage", "3.20 V", Icons.Outlined.Bolt),
+    Data("Health", "bad", Icons.Outlined.HealthAndSafety)
 )
 
 val dataList5 = listOf(
     Data("Status", "OFF", Icons.Outlined.Power),
     Data("Energy", "60Ah", Icons.Outlined.Memory),
     Data("Temperature", "10°C", Icons.Outlined.Thermostat),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Health", "good", Icons.Outlined.HealthAndSafety),
-    Data("Voltage", "88V", Icons.Outlined.Bolt)
+    Data("Voltage", "3.28 V", Icons.Outlined.Bolt),
+    Data("Health", "good", Icons.Outlined.HealthAndSafety)
 )
 @Composable
 fun dropDownDetailsMenu(): String {

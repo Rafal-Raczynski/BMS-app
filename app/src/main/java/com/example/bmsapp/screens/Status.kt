@@ -83,8 +83,10 @@ fun PreviewBatteryScreen() {
 val dataList = listOf(
     Data("No. of cells", "15", Icons.Outlined.ChargingStation),
     Data("Status", "ON", Icons.Outlined.Power),
-    Data("Voltage", "100 V", Icons.Outlined.BatteryChargingFull),
-    Data("Current", "2 A", Icons.Outlined.Bolt),
+    Data("Voltage", "3.28 V", Icons.Outlined.BatteryChargingFull),
+    Data("Current", "1 A", Icons.Outlined.Bolt),
+    Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
+    Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull)
 )
 /*@Composable
 fun dropDownMenu(): String {

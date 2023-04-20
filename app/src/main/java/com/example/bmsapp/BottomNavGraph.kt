@@ -16,14 +16,14 @@ fun BottomNavGraph( navController: NavHostController) {
         navController = navController,
         startDestination = BottomBarScreen.Bluetooth.route
     ) {
+        composable(route = BottomBarScreen.Bluetooth.route) {
+            BluetoothScreen()
+        }
         composable(route = BottomBarScreen.Status.route) {
             StatusScreen()
         }
         composable(route = BottomBarScreen.Details.route) {
             DetailsScreen()
-        }
-        composable(route = BottomBarScreen.Bluetooth.route) {
-            BluetoothScreen()
         }
         composable(route = BottomBarScreen.History.route) {
             HistoryScreen()
