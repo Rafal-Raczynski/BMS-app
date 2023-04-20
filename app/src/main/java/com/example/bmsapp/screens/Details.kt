@@ -1,5 +1,6 @@
 package com.example.bmsapp.screens
 
+import DetailsRowList
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -43,14 +44,14 @@ fun DetailsScreen() {
             "Bateria3" -> 45
             else -> 0
         }
-        Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState)) {
+        //Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState)) {
             //  a = dropDownMenu()
             // percentage = when (a) {
             //    "dataList" -> 10
             //   "dataList1" -> 70
             //   else -> 0
             // }
-            Surface(
+            /*Surface(
                 modifier = Modifier
                     .padding(top = 35.dp)
                     .fillMaxWidth()
@@ -61,16 +62,16 @@ fun DetailsScreen() {
                     backgroundColor = Color.LightGray,
                     strokeWidth = 15.dp
                 )
-            }
+            }*/
             when (a) {
-                "Bateria1" -> InfoCardsList(list = dataList3)
-                "Bateria2" -> InfoCardsList(list = dataList4)
-                "Bateria3" -> InfoCardsList(list = dataList5)
+                "Bateria1" -> DetailsRowList(list = dataList3)
+                "Bateria2" -> DetailsRowList(list = dataList4)
+                "Bateria3" -> DetailsRowList(list = dataList5)
             }
             // InfoCardsList(list = dataList)
         }
     }
-}
+//}
 
 
 @Preview
