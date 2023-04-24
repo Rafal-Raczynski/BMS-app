@@ -1,5 +1,6 @@
 package com.example.bmsapp.screens
 
+import DetailsRowListNoIcon
 import android.hardware.BatteryState
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -46,19 +47,21 @@ fun StatusScreen() {
             "Bateria1" -> 85
             else -> 0
         }*/
-        Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState)) {
+        Column(modifier = Modifier.fillMaxSize()/*.verticalScroll(scrollState)*/) {
             //  a = dropDownMenu()
             // percentage = when (a) {
             //    "dataList" -> 10
             //   "dataList1" -> 70
             //   else -> 0
             // }
+            DetailsRowListNoIcon(list = dataListIntro)
             Surface(
                 modifier = Modifier
-                    .padding(top = 35.dp)
+                    .padding(top = 10.dp)
                     .fillMaxWidth()
 
-            ) {
+            )
+            {
                 BatteryCircleProgress(
                     percentage = percentage,
                     backgroundColor = Color.LightGray,
@@ -81,13 +84,19 @@ fun PreviewBatteryScreen() {
 }
 
 val dataList = listOf(
-    Data("No. of cells", "15", Icons.Outlined.ChargingStation),
     Data("Status", "ON", Icons.Outlined.Power),
     Data("Voltage", "3.28 V", Icons.Outlined.BatteryChargingFull),
     Data("Current", "1 A", Icons.Outlined.Bolt),
-    Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
-    Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull)
-)
+    Data("Energy", "60 Ah", Icons.Outlined.Memory),
+    Data("Temperature", "24°C", Icons.Outlined.Thermostat),
+    Data("State of Health", "94 %", Icons.Outlined.HealthAndSafety))
+
+
+val dataListIntro = listOf(
+    Data("Total number of cells", "15", Icons.Outlined.Power),
+    Data("Nominal capacity", "60 Ah", Icons.Outlined.Power))
+
+
 /*@Composable
 fun dropDownMenu(): String {
 

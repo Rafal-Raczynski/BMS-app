@@ -42,6 +42,23 @@ fun DetailsRowList(list: List<Data>) {
 }
 
 @Composable
+fun DetailsRowListNoIcon(list: List<Data>) {
+    LazyColumn(
+        //columns = GridCells.Fixed(3),
+        modifier = Modifier
+            .padding(10.dp)
+        //.height(600.dp)
+        //.fillMaxHeight()
+
+
+    ) {
+        itemsIndexed(items = list) { _, item ->
+            RowItemNoIcon(item)
+        }
+    }
+}
+
+@Composable
 fun RowItem(data: Data) {
     Card(
         elevation = 3.dp,
@@ -103,16 +120,50 @@ fun RowItem(data: Data) {
 
 }
 
-val dataLists = listOf(
-    Data("Health", "Good", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10C", Icons.Outlined.Thermostat),
-    Data("Source", "10V", Icons.Outlined.Cable),
-    Data("Status", "5", Icons.Outlined.Power),
-    Data("Energy", "1,5mAh", Icons.Outlined.Memory),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "siuu", Icons.Outlined.Memory),
-    Data("Voltage", "66", Icons.Outlined.Bolt), Data("Status", "hovno", Icons.Outlined.Power),
-    Data("Technologie", "aaa", Icons.Outlined.Memory),
-    Data("Voltage", "hovno", Icons.Outlined.Bolt),
-    Data("Technologie", "aaa", Icons.Outlined.Memory)
-)
+@Composable
+fun RowItemNoIcon(data: Data) {
+    Card(
+        elevation = 3.dp,
+        shape = RoundedCornerShape(0.dp),
+        modifier = Modifier
+            .padding(0.dp)
+            .fillMaxSize()
+        //, backgroundColor = Color.White tu zmieniamy kolor tła karty
+
+
+    ) {
+
+        Row(
+            modifier = Modifier
+                .padding(vertical = 0.dp)
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+
+
+        ) {
+
+
+            Text(
+                text = data.label,
+                color = Color.Gray,
+                //fontSize = 12.sp,
+                fontSize = 15.sp,
+                // modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Text(
+                text = data.value,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = Color.DarkGray,
+                //fontSize = 18.sp,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                //modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+        }
+    }
+
+}
