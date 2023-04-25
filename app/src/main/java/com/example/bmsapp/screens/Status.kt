@@ -1,7 +1,9 @@
 package com.example.bmsapp.screens
 
 import DetailsRowListNoIcon
+import android.content.Context
 import android.hardware.BatteryState
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -27,18 +29,23 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.example.bmsapp.screens.InfoCardsList
 import com.example.bmsapp.ui.theme.darkgreen
 import com.example.bmsapp.ui.theme.lightgreen
+import kotlinx.coroutines.delay
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.util.*
 
 
 @Composable
 fun StatusScreen() {
     var a :String
-
+    val value = randomFloat()
     var percentage:Int
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
@@ -72,6 +79,14 @@ fun StatusScreen() {
                 "Bateria1" -> InfoCardsList(list = dataList)
             }*/
             InfoCardsList(list = dataList)
+            //dataList.forEach(Data.updateValue())
+            //val value= randomFloat()
+             //dataList.map { data ->
+              //  data.updateValue(value)
+             //   data
+            //}
+
+            updateDataList(dataList = dataList)
         }
     }
 }
@@ -87,7 +102,7 @@ val dataList = listOf(
     Data("Status", "ON", Icons.Outlined.Power),
     Data("Voltage", "3.28 V", Icons.Outlined.BatteryChargingFull),
     Data("Current", "1 A", Icons.Outlined.Bolt),
-    Data("Energy", "60 Ah", Icons.Outlined.Memory),
+    Data("Energy", "60 Wh", Icons.Outlined.Memory),
     Data("Temperature", "24°C", Icons.Outlined.Thermostat),
     Data("State of Health", "94 %", Icons.Outlined.HealthAndSafety))
 
@@ -96,6 +111,14 @@ val dataListIntro = listOf(
     Data("Total number of cells", "15", Icons.Outlined.Power),
     Data("Nominal capacity", "60 Ah", Icons.Outlined.Power))
 
+@Composable
+fun updateDataList(dataList: List<Data>) {
+    val value = randomFloat()
+    dataList.map { data ->
+        data.updateValue(value)
+        data
+    }
+}
 
 /*@Composable
 fun dropDownMenu(): String {

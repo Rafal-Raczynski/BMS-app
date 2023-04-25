@@ -64,7 +64,7 @@ fun RowItem(data: Data) {
         elevation = 3.dp,
         shape = RoundedCornerShape(0.dp),
         modifier = Modifier
-            .padding(0.dp)
+            .padding(5.dp)
             .fillMaxSize()
         //, backgroundColor = Color.White tu zmieniamy kolor tła karty
 
