@@ -27,11 +27,12 @@ fun randomFloat(): String {
     var randomFloat by remember { mutableStateOf(30.00f) }
     LaunchedEffect(true) {
         while (true) {
-            randomFloat = (Random().nextFloat() * 20.1f + 30.0f).round(2)
-            delay(5000)
+            randomFloat = (Random().nextFloat() * 20.10f + 30.00f).round(2)
+           delay(5000)
         }
     }
-    return randomFloat.toString()
+
+    return String.format("%.2f", randomFloat)
 }
 
 
