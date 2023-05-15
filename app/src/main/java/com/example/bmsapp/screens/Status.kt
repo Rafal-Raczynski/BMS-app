@@ -45,12 +45,12 @@ import java.util.*
 @Composable
 fun StatusScreen() {
     var a :String
-    val value = randomFloat()
-    var percentage:Int
-    val scrollState = rememberScrollState()
+    val value= randomFloat()
+    //var percentage:Int
+    var percentage by remember{ mutableStateOf(10) }
     Column(modifier = Modifier.fillMaxSize()) {
         //a = dropDownMenu()
-        percentage = 85 /*when (a) {
+       /*when (a) {
             "Bateria1" -> 85
             else -> 0
         }*/
@@ -86,7 +86,11 @@ fun StatusScreen() {
              //   data
             //}
 
-            updateDataList(dataList = dataList)
+           // updateDataList(dataList = dataList)
+           // var strValue = master.soc.value
+           // var intValue = strValue.substring(0, strValue.indexOf(".")).toInt()
+           // percentage=intValue
+           // print(percentage)
         }
     }
 }
@@ -98,13 +102,9 @@ fun PreviewBatteryScreen() {
     StatusScreen()
 }
 
+val master=Master()
 val dataList = listOf(
-    Data("Status", "ON", Icons.Outlined.Power),
-    Data("Voltage", "3.28 V", Icons.Outlined.BatteryChargingFull),
-    Data("Current", "1 A", Icons.Outlined.Bolt),
-    Data("Energy", "60 Wh", Icons.Outlined.Memory),
-    Data("Temperature", "24°C", Icons.Outlined.Thermostat),
-    Data("State of Health", "94 %", Icons.Outlined.HealthAndSafety))
+    master.status,master.voltage,master.current,master.energy,master.temperature,master.sof,master.soc)
 
 
 val dataListIntro = listOf(
@@ -120,73 +120,3 @@ fun updateDataList(dataList: List<Data>) {
     }
 }
 
-/*@Composable
-fun dropDownMenu(): String {
-
-    var expanded by remember { mutableStateOf(false) }
-    val suggestions = listOf("Bateria1")
-    var selectedText by rememberSaveable { mutableStateOf("Bateria1") }
-
-    var textfieldSize by remember { mutableStateOf(Size.Zero)}
-
-    val icon = if (expanded)
-        Icons.Filled.KeyboardArrowUp
-    else
-        Icons.Filled.KeyboardArrowDown
-
-
-    Column(Modifier.padding(start = 25.dp,end=25.dp)) {
-        // Surface(
-        //  modifier = Modifier
-        //      .padding(top = 35.dp)
-        //      .fillMaxWidth()
-
-        //){
-        TextField(
-            value = selectedText,
-            onValueChange = { selectedText = it },colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White, textColor = darkgreen),
-            modifier = Modifier
-                .padding(top = 35.dp)
-                .fillMaxWidth()
-                .background(Color.White)
-
-                .clickable{ expanded = !expanded }
-                .onGloballyPositioned { coordinates ->
-                    //This value is used to assign to the DropDown the same width
-                    textfieldSize = coordinates.size.toSize()
-
-
-                },
-            //label = {Text("Label")},
-            trailingIcon = {
-                Icon(icon,"contentDescription",
-                    Modifier.clickable { expanded = !expanded })
-            }, readOnly = true,enabled=false
-        )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                .requiredSizeIn(maxHeight = 200.dp)
-
-        ) {
-            suggestions.forEach { label ->
-                DropdownMenuItem(onClick = {
-                    selectedText = label
-                    expanded = false
-                }) {
-                    Text(text = label,color= lightgreen)
-                }
-            }
-        }
-        // }
-
-
-
-
-    }
-    return selectedText
-}
-*/

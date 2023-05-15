@@ -69,10 +69,10 @@ fun DetailsScreen() {
                 "Bateria3" -> DetailsRowList(list = dataList5)
             }
             // InfoCardsList(list = dataList)
-        val value = randomFloat()
-        updateDataList(dataList = dataList3)
-        updateDataList(dataList = dataList4)
-        updateDataList(dataList = dataList5)
+       // val value = randomFloat()
+        //updateDataList(dataList = dataList3)
+       // updateDataList(dataList = dataList4)
+       // updateDataList(dataList = dataList5)
         }
     }
 //}
