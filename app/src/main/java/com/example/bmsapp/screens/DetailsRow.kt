@@ -101,6 +101,7 @@ fun RowItem(data: Data) {
                 color = Color.Gray,
                 //fontSize = 12.sp,
                 fontSize = 15.sp,
+
                 // modifier = Modifier.align(Alignment.CenterHorizontally)
             )}
 
@@ -112,7 +113,7 @@ fun RowItem(data: Data) {
                 //fontSize = 18.sp,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                //modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier=Modifier.padding(10.dp)
             )
 
         }
@@ -161,6 +162,7 @@ fun RowItemNoIcon(data: Data) {
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 //modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier=Modifier.padding(end=10.dp)
             )
 
         }

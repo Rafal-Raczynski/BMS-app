@@ -22,9 +22,9 @@ data class Data(
 
 class Master(){
     val status=Data("Status", "ON", Icons.Outlined.Power)
-    val voltage=Data("Voltage", "3.28 V", Icons.Outlined.BatteryChargingFull)
+    val voltage=Data("Voltage", "a", Icons.Outlined.BatteryChargingFull)
     val current=Data("Current", "1 A", Icons.Outlined.Bolt)
-    val energy=Data("Energy", "60 Wh", Icons.Outlined.Memory)
+    val energy=Data("Energy", "0.5kWh", Icons.Outlined.Memory)
     val temperature=Data("Temperature", "24°C", Icons.Outlined.Thermostat)
     val sof=Data("State of Health", "94 %", Icons.Outlined.HealthAndSafety)
     val soc=Data("State of Health", "10", Icons.Outlined.HealthAndSafety)
