@@ -28,5 +28,6 @@ fun BottomNavGraph( navController: NavHostController) {
         composable(route = BottomBarScreen.History.route) {
             HistoryScreen()
         }
+
     }
 }

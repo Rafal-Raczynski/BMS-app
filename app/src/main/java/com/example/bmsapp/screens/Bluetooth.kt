@@ -147,6 +147,7 @@ fun BluetoothScreen() {
                 Text(text = message)
             }
         }
+
     }
 }
 /*fun BluetoothScreen() {

@@ -35,4 +35,5 @@ sealed class BottomBarScreen(
         title = "History",
         icon = Icons.Default.History
     )
+
 }
