@@ -104,10 +104,7 @@ val dataLists = listOf(
     Data("Status", "5", Icons.Outlined.Power),
     Data("Energy", "1,5mAh", Icons.Outlined.Memory),
     Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "siuu", Icons.Outlined.Memory),
-    Data("Voltage", "66", Icons.Outlined.Bolt), Data("Status", "hovno", Icons.Outlined.Power),
-    Data("Technologie", "aaa", Icons.Outlined.Memory),Data("Voltage", "hovno", Icons.Outlined.Bolt),
-        Data("Technologie", "aaa", Icons.Outlined.Memory))
+    Data("Technologie", "siuu", Icons.Outlined.Memory))
 
 
 
