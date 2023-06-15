@@ -90,19 +90,14 @@ fun RowItem(data: Data) {
                 colorFilter = ColorFilter.tint(lightgreen),
                 modifier = Modifier
                     .size(50.dp, 50.dp)
-                    //.size(20.dp, 20.dp)
                     .fillMaxWidth()
-                //.align()
             )
 
 
             Text(
                 text = data.label,
                 color = Color.Gray,
-                //fontSize = 12.sp,
                 fontSize = 15.sp,
-
-                // modifier = Modifier.align(Alignment.CenterHorizontally)
             )}
 
             Text(
@@ -129,7 +124,7 @@ fun RowItemNoIcon(data: Data) {
         modifier = Modifier
             .padding(0.dp)
             .fillMaxSize()
-        //, backgroundColor = Color.White tu zmieniamy kolor tła karty
+        // backgroundColor = Color.White tu zmieniamy kolor tła karty
 
 
     ) {
@@ -148,9 +143,7 @@ fun RowItemNoIcon(data: Data) {
             Text(
                 text = data.label,
                 color = Color.Gray,
-                //fontSize = 12.sp,
                 fontSize = 15.sp,
-                // modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Text(
@@ -158,10 +151,8 @@ fun RowItemNoIcon(data: Data) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.DarkGray,
-                //fontSize = 18.sp,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                //modifier = Modifier.align(Alignment.CenterHorizontally)
                 modifier=Modifier.padding(end=10.dp)
             )
 

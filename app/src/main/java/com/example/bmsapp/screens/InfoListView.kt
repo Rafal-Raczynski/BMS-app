@@ -28,7 +28,7 @@ import com.example.bmsapp.ui.theme.lightgreen
 @Composable
 fun InfoCardsList(list: List<Data>) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Fixed(2),
         modifier = Modifier
             .padding(10.dp)
             .height(600.dp)
@@ -67,7 +67,6 @@ fun InfoItem(data: Data) {
                 colorFilter = ColorFilter.tint(lightgreen),
                 modifier = Modifier
                     .size(50.dp, 50.dp)
-                    //.size(20.dp, 20.dp)
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally)
             )
@@ -76,7 +75,6 @@ fun InfoItem(data: Data) {
             Text(
                 text = data.label,
                 color = Color.Gray,
-                //fontSize = 12.sp,
                 fontSize = 12.sp,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
@@ -86,7 +84,6 @@ fun InfoItem(data: Data) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.DarkGray,
-                //fontSize = 18.sp,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)

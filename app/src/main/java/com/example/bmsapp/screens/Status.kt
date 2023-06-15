@@ -19,18 +19,7 @@ fun StatusScreen() {
     //var percentage:Int
     val percentage by remember{ mutableStateOf(10) }
     Column(modifier = Modifier.fillMaxSize()) {
-        //a = dropDownMenu()
-       /*when (a) {
-            "Bateria1" -> 85
-            else -> 0
-        }*/
         Column(modifier = Modifier.fillMaxSize()/*.verticalScroll(scrollState)*/) {
-            //  a = dropDownMenu()
-            // percentage = when (a) {
-            //    "dataList" -> 10
-            //   "dataList1" -> 70
-            //   else -> 0
-            // }
             DetailsRowListNoIcon(list = dataListIntro)
             Surface(
                 modifier = Modifier
@@ -45,27 +34,11 @@ fun StatusScreen() {
                     strokeWidth = 15.dp
                 )
             }
-            /*when (a) {
-                "Bateria1" -> InfoCardsList(list = dataList)
-            }*/
             InfoCardsList(list = dataList)
-            //dataList.forEach(Data.updateValue())
-            //val value= randomFloat()
-             //dataList.map { data ->
-              //  data.updateValue(value)
-             //   data
-            //}
-
-           // updateDataList(dataList = dataList)
-            //var strValue = master.soc.value
-            //var intValue = strValue.substring(0, strValue.indexOf(".")).toInt()
-           // percentage=intValue
-           // print(percentage)
         }
     }
     master.voltage.value= lastmessage.value
 }
-
 
 
 @Preview
@@ -76,7 +49,7 @@ fun PreviewBatteryScreen() {
 
 val master=Master()
 val dataList = listOf(
-    master.status,master.voltage,master.current,master.energy,master.temperature,master.sof,master.soc)
+    master.status,master.voltage,master.current,master.energy,master.temperature,master.sof)
 
 
 val dataListIntro = listOf(

@@ -89,7 +89,6 @@ import java.util.*
     private var bluetoothSocket: BluetoothSocket? = null
     private var outputStream: OutputStream? = null
     private var inputStream: InputStream? = null
-
     private val deviceAddress = "20:16:06:20:91:40" // Replace with your HC-05 module's address
     val receivedMessages = mutableStateListOf<String>()
     var lastmessage=mutableStateOf("no data")
@@ -126,8 +125,8 @@ fun BluetoothScreen() {
                     Text(text = "Connect", color = Color.White)
                 }
             }
-
-            TextField(
+            //Wysyłanie danych
+           /* TextField(
                 value = commandState.value,
                 onValueChange = { commandState.value = it },
                 label = { Text(text = "Command") },
@@ -139,9 +138,9 @@ fun BluetoothScreen() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(text = "Send")
-            }
+            }*/
 
-            //Spacer(modifier = Modifier.height(16.dp))
+
 
             for (message in receivedMessages) {
                 Text(text = message)
@@ -150,35 +149,8 @@ fun BluetoothScreen() {
 
     }
 }
-/*fun BluetoothScreen() {
-    Surface(color = MaterialTheme.colors.background) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            val commandState = remember { mutableStateOf("") }
-            val connectionStatusState = remember { mutableStateOf("") }
-
-            Text(text = connectionStatusState.value)
-            Button(onClick = { connect(connectionStatusState) }) {
-                Text(text = "Connect")
-            }
-            TextField(
-                value = commandState.value,
-                onValueChange = { commandState.value = it },
-                label = { Text(text = "Command") }
-            )
-            Button(onClick = { sendCommand(commandState) }) {
-                Text(text = "Send")
-            }
-            for (message in receivedMessages) {
-                Text(text = message)
-            }
-        }
-    }
-}*/
-
-
 
     private fun connect(connectionStatusState: MutableState<String>) {
-
         GlobalScope.launch(Dispatchers.IO) {
             val device: BluetoothDevice? = bluetoothAdapter?.getRemoteDevice(deviceAddress)
             val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // Standard SPP UUID
@@ -240,16 +212,3 @@ fun BluetoothScreen() {
             }
         }
     }
-
-    /*override fun onDestroy() {
-        super.onDestroy()
-        try {
-            outputStream?.close()
-            inputStream?.close()
-            bluetoothSocket?.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }*/
-
-

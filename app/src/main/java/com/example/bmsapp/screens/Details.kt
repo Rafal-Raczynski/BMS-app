@@ -35,38 +35,15 @@ fun DetailsScreen() {
             "Bateria3" -> 45
             else -> 0
         }
-        //Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState)) {
-            //  a = dropDownMenu()
-            // percentage = when (a) {
-            //    "dataList" -> 10
-            //   "dataList1" -> 70
-            //   else -> 0
-            // }
-            /*Surface(
-                modifier = Modifier
-                    .padding(top = 35.dp)
-                    .fillMaxWidth()
 
-            ) {
-                BatteryCircleProgress(
-                    percentage = percentage,
-                    backgroundColor = Color.LightGray,
-                    strokeWidth = 15.dp
-                )
-            }*/
             when (a) {
                 "Bateria1" -> DetailsRowList(list = dataList3)
                 "Bateria2" -> DetailsRowList(list = dataList4)
                 "Bateria3" -> DetailsRowList(list = dataList5)
             }
-            // InfoCardsList(list = dataList)
-       // val value = randomFloat()
-        //updateDataList(dataList = dataList3)
-       // updateDataList(dataList = dataList4)
-       // updateDataList(dataList = dataList5)
+
         }
     }
-//}
 
 
 @Preview
@@ -79,7 +56,7 @@ val dataList3 = listOf(
     Data("No. of cells", "5", Icons.Outlined.Power),
     Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
     Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull),
-    Data("Energy", "21 Ah", Icons.Outlined.Memory),
+    Data("Energy", "0.5 kWh", Icons.Outlined.Memory),
     Data("Voltage", "3.27 V", Icons.Outlined.Bolt)
 )
 
@@ -87,7 +64,7 @@ val dataList4 = listOf(
     Data("No. of cells", "5", Icons.Outlined.Power),
     Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
     Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull),
-    Data("Energy", "18 Ah", Icons.Outlined.Memory),
+    Data("Energy", "0.48 kWh", Icons.Outlined.Memory),
     Data("Voltage", "3.20 V", Icons.Outlined.Bolt),
 )
 
@@ -95,7 +72,7 @@ val dataList5 = listOf(
     Data("No. of cells", "5", Icons.Outlined.Power),
     Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
     Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull),
-    Data("Energy", "21 Ah", Icons.Outlined.Memory),
+    Data("Energy", "0.46 kWh", Icons.Outlined.Memory),
     Data("Voltage", "3.28 V", Icons.Outlined.Bolt)
 )
 @Composable
@@ -114,12 +91,7 @@ fun dropDownDetailsMenu(): String {
 
 
     Column(Modifier.padding(start = 25.dp,end=25.dp)) {
-        // Surface(
-        //  modifier = Modifier
-        //      .padding(top = 35.dp)
-        //      .fillMaxWidth()
 
-        //){
         TextField(
             value = selectedText,
             onValueChange = { selectedText = it },colors = TextFieldDefaults.textFieldColors(
@@ -137,7 +109,6 @@ fun dropDownDetailsMenu(): String {
 
 
                 },
-            //label = {Text("Label")},
             trailingIcon = {
                 Icon(icon,"contentDescription",
                     Modifier.clickable { expanded = !expanded })
@@ -160,14 +131,6 @@ fun dropDownDetailsMenu(): String {
                 }
             }
         }
-        // }
-
-
-
-
-
-
-
     }
     return selectedText
 }

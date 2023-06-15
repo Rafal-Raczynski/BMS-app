@@ -27,7 +27,7 @@ class Master(){
     val energy=Data("Energy", "0.5kWh", Icons.Outlined.Memory)
     val temperature=Data("Temperature", "24°C", Icons.Outlined.Thermostat)
     val sof=Data("State of Health", "94 %", Icons.Outlined.HealthAndSafety)
-    val soc=Data("State of Health", "10", Icons.Outlined.HealthAndSafety)
+    val soc=Data("State of Charge", "10", Icons.Outlined.HealthAndSafety)
 }
 
 
