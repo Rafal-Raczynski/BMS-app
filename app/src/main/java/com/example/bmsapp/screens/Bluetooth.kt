@@ -79,19 +79,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
+import java.io.InputStreamReader
 import java.io.OutputStream
 import java.util.*
 
 
-    private val bluetoothAdapter: BluetoothAdapter? by lazy { BluetoothAdapter.getDefaultAdapter() }
-    private var bluetoothSocket: BluetoothSocket? = null
-    private var outputStream: OutputStream? = null
-    private var inputStream: InputStream? = null
-    private val deviceAddress = "20:16:06:20:91:40" // Replace with your HC-05 module's address
-    val receivedMessages = mutableStateListOf<String>()
-    var lastmessage=mutableStateOf("no data")
+private val bluetoothAdapter: BluetoothAdapter? by lazy { BluetoothAdapter.getDefaultAdapter() }
+private var bluetoothSocket: BluetoothSocket? = null
+private var outputStream: OutputStream? = null
+private var inputStream: InputStream? = null
+private val deviceAddress = "20:16:06:20:91:40" // Replace with your HC-05 module's address
+val receivedMessages = mutableStateListOf<String>()
+var lastmessage = mutableStateOf("no data")
 
 @Composable
 fun BluetoothScreen() {
@@ -125,90 +127,71 @@ fun BluetoothScreen() {
                     Text(text = "Connect", color = Color.White)
                 }
             }
-            //Wysyłanie danych
-           /* TextField(
-                value = commandState.value,
-                onValueChange = { commandState.value = it },
-                label = { Text(text = "Command") },
-                modifier = Modifier.padding(vertical = 16.dp)
-            )
-
-            Button(
-                onClick = { sendCommand(commandState) },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = "Send")
-            }*/
 
 
 
-            for (message in receivedMessages) {
-                Text(text = message)
-            }
+                Text(text = lastmessage.value)
+
         }
 
     }
 }
 
-    private fun connect(connectionStatusState: MutableState<String>) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val device: BluetoothDevice? = bluetoothAdapter?.getRemoteDevice(deviceAddress)
-            val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // Standard SPP UUID
+private fun connect(connectionStatusState: MutableState<String>) {
+    GlobalScope.launch(Dispatchers.IO) {
+        val device: BluetoothDevice? = bluetoothAdapter?.getRemoteDevice(deviceAddress)
+        val uuid: UUID =
+            UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // Standard SPP UUID
 
-            try {
-                bluetoothSocket = device?.createRfcommSocketToServiceRecord(uuid)
-                bluetoothSocket?.connect()
-                outputStream = bluetoothSocket?.outputStream
-                inputStream = bluetoothSocket?.inputStream
+        try {
+            bluetoothSocket = device?.createRfcommSocketToServiceRecord(uuid)
+            bluetoothSocket?.connect()
+            outputStream = bluetoothSocket?.outputStream
+            inputStream = bluetoothSocket?.inputStream
 
-                connectionStatusState.value = "Connected to $deviceAddress"
+            connectionStatusState.value = "Connected to $deviceAddress"
 
-                startReceivingMessages()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            startReceivingMessages()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
+}
 
-    private fun startReceivingMessages() {
-        GlobalScope.launch(Dispatchers.IO) {
-            val buffer = ByteArray(1024)
-            var bytes: Int
+private fun startReceivingMessages() {
+    GlobalScope.launch(Dispatchers.IO) {
+        var reader: BufferedReader? = null
+        try {
+            reader = BufferedReader(InputStreamReader(inputStream, Charsets.UTF_8))
 
             while (true) {
-                try {
-                    bytes = inputStream?.read(buffer) ?: -1
-                    if (bytes != -1) {
-                        val receivedData = buffer.copyOf(bytes).toString(Charsets.UTF_8)
-                        val messages = receivedData.split("\n", "\r")
-                        // Split the received data by newline character
-                        for (message in messages) {
-                            val receivedMessage = message.trim() // Trim leading and trailing whitespace
-                            if (receivedMessage.isNotEmpty()) {
-                                Log.d("ReceivedMessage", receivedData)
-                                receivedMessages.add(receivedMessage)
-                                lastmessage.value=message
-                            }
-                        }
-                    }
+                val receivedMessage = reader.readLine() ?: break
+                val trimmedMessage = receivedMessage.trim()
 
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    break
+                if (trimmedMessage.isNotEmpty()) {
+                    //Log.d("ReceivedMessage", trimmedMessage)
+                    receivedMessages.add(trimmedMessage)
+                    lastmessage.value = trimmedMessage
                 }
             }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            reader?.close()
         }
     }
+}
 
-    private fun sendCommand(commandState: MutableState<String>) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val command = commandState.value
-            command.plus("\n") // Append a newline character
 
-            try {
-                outputStream?.write(command.toByteArray())
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+private fun sendCommand(commandState: MutableState<String>) {
+    GlobalScope.launch(Dispatchers.IO) {
+        val command = commandState.value
+        command.plus("\n") // Append a newline character
+
+        try {
+            outputStream?.write(command.toByteArray())
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
+}

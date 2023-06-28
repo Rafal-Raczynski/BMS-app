@@ -15,9 +15,12 @@ import androidx.compose.runtime.*
 @Composable
 fun StatusScreen() {
     var a :String
-    //val value= randomFloat()
+    var percentage by remember{ mutableStateOf(master.soc.value.toInt()?:5) }
+    //LaunchedEffect(lastmessage.value) {
+    //    percentage = lastmessage.value.toIntOrNull() ?: percentage
+   // }
     //var percentage:Int
-    val percentage by remember{ mutableStateOf(10) }
+
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()/*.verticalScroll(scrollState)*/) {
             DetailsRowListNoIcon(list = dataListIntro)
@@ -37,7 +40,8 @@ fun StatusScreen() {
             InfoCardsList(list = dataList)
         }
     }
-    master.voltage.value= lastmessage.value
+   master.voltage.value= lastmessage.value
+   // master.soc.value= lastmessage.value
 }
 
 

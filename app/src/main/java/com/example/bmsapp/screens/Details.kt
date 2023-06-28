@@ -28,7 +28,7 @@ fun DetailsScreen() {
     var percentage:Int
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
-        a = dropDownDetailsMenu()
+        a = dropDownDetailsMenu(2)
         percentage = when (a) {
             "Bateria1" -> 10
             "Bateria2" -> 70
@@ -76,43 +76,42 @@ val dataList5 = listOf(
     Data("Voltage", "3.28 V", Icons.Outlined.Bolt)
 )
 @Composable
-fun dropDownDetailsMenu(): String {
-
+fun dropDownDetailsMenu(numBatteries: Int): String {
     var expanded by remember { mutableStateOf(false) }
-    val suggestions = listOf("Bateria1","Bateria2","Bateria3")
-    var selectedText by rememberSaveable { mutableStateOf("Bateria1") }
-
-    var textfieldSize by remember { mutableStateOf(Size.Zero)}
+    val suggestions = (1..numBatteries).map { "Bateria$it" }
+    var selectedText by rememberSaveable { mutableStateOf(suggestions.firstOrNull() ?: "") }
+    var textfieldSize by remember { mutableStateOf(Size.Zero) }
 
     val icon = if (expanded)
         Icons.Filled.KeyboardArrowUp
     else
         Icons.Filled.KeyboardArrowDown
 
-
-    Column(Modifier.padding(start = 25.dp,end=25.dp)) {
-
+    Column(Modifier.padding(start = 25.dp, end = 25.dp)) {
         TextField(
             value = selectedText,
-            onValueChange = { selectedText = it },colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White, textColor = darkgreen
+            onValueChange = { selectedText = it },
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = darkgreen
             ),
             modifier = Modifier
                 .padding(top = 35.dp)
                 .fillMaxWidth()
                 .background(Color.White)
-
-                .clickable{ expanded = !expanded }
+                .clickable { expanded = !expanded }
                 .onGloballyPositioned { coordinates ->
-                    //This value is used to assign to the DropDown the same width
                     textfieldSize = coordinates.size.toSize()
-
-
                 },
             trailingIcon = {
-                Icon(icon,"contentDescription",
-                    Modifier.clickable { expanded = !expanded })
-            }, readOnly = true,enabled=false
+                Icon(
+                    icon,
+                    "contentDescription",
+                    Modifier.clickable { expanded = !expanded }
+                )
+            },
+            readOnly = true,
+            enabled = false
         )
         DropdownMenu(
             expanded = expanded,
@@ -120,14 +119,13 @@ fun dropDownDetailsMenu(): String {
             modifier = Modifier
                 .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
                 .requiredSizeIn(maxHeight = 200.dp)
-
         ) {
             suggestions.forEach { label ->
                 DropdownMenuItem(onClick = {
                     selectedText = label
                     expanded = false
                 }) {
-                    Text(text = label,color= lightgreen)
+                    Text(text = label, color = lightgreen)
                 }
             }
         }
