@@ -94,6 +94,10 @@ private var inputStream: InputStream? = null
 private val deviceAddress = "20:16:06:20:91:40" // Replace with your HC-05 module's address
 val receivedMessages = mutableStateListOf<String>()
 var lastmessage = mutableStateOf("no data")
+var lastmessageVoltagelist = mutableListOf<Float>()
+var lastmessageCurrentlist = mutableListOf<Float>()
+var lastmessageTemperaturelist = mutableListOf<Float>()
+var lastmessageSoclist = mutableListOf<Float>()
 
 @Composable
 fun BluetoothScreen() {
@@ -168,10 +172,22 @@ private fun startReceivingMessages() {
                 val receivedMessage = reader.readLine() ?: break
                 val trimmedMessage = receivedMessage.trim()
 
-                if (trimmedMessage.isNotEmpty()) {
+                /*if (trimmedMessage.isNotEmpty()) {
                     //Log.d("ReceivedMessage", trimmedMessage)
                     receivedMessages.add(trimmedMessage)
                     lastmessage.value = trimmedMessage
+                }*/
+                if (trimmedMessage.length == 19 && trimmedMessage.matches(Regex("[0-9A-Fa-f]+")))
+                {
+                    val id = trimmedMessage.substring(0, 3)
+                    val hex1 = trimmedMessage.substring(3, 5)
+                    val hex2 = trimmedMessage.substring(5, 7)
+                    val hex3 = trimmedMessage.substring(7, 9)
+                    val hex4 = trimmedMessage.substring(9, 11)
+                    val hex5 = trimmedMessage.substring(11, 13)
+                    val hex6 = trimmedMessage.substring(13, 15)
+                    val hex7 = trimmedMessage.substring(15, 17)
+                    val hex8 = trimmedMessage.substring(17, 19)
                 }
             }
         } catch (e: IOException) {

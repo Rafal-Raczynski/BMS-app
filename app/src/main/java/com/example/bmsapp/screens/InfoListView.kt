@@ -44,13 +44,18 @@ fun InfoCardsList(list: List<Data>) {
 
 @Composable
 fun InfoItem(data: Data) {
+    var Kolor=Color.White
+    if(data.label=="Voltage" && data.value<"15")
+    {
+        Kolor=Color.Red
+    }
     Card(
         elevation = 3.dp,
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
             .padding(10.dp)
             .fillMaxSize()
-            //, backgroundColor = Color.White tu zmieniamy kolor tła karty
+            , backgroundColor = Kolor //tu zmieniamy kolor tła karty
 
 
     ) {
@@ -80,7 +85,7 @@ fun InfoItem(data: Data) {
             )
 
             Text(
-                text = data.value,
+                text = data.value+data.unit,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.DarkGray,
@@ -95,13 +100,13 @@ fun InfoItem(data: Data) {
 }
 
 val dataLists = listOf(
-    Data("Health", "Good", Icons.Outlined.HealthAndSafety),
-    Data("Temperature", "10C", Icons.Outlined.Thermostat),
-    Data("Source", "10V", Icons.Outlined.Cable),
-    Data("Status", "5", Icons.Outlined.Power),
-    Data("Energy", "1,5mAh", Icons.Outlined.Memory),
-    Data("Voltage", "5V", Icons.Outlined.Bolt),
-    Data("Technologie", "siuu", Icons.Outlined.Memory))
+    Data("Health", "Good","", Icons.Outlined.HealthAndSafety),
+    Data("Temperature", "10C","", Icons.Outlined.Thermostat),
+    Data("Source", "10V","", Icons.Outlined.Cable),
+    Data("Status", "5","", Icons.Outlined.Power),
+    Data("Energy", "1,5mAh","", Icons.Outlined.Memory),
+    Data("Voltage", "5V","", Icons.Outlined.Bolt),
+    Data("Technologie", "siuu","", Icons.Outlined.Memory))
 
 
 

@@ -15,7 +15,7 @@ import androidx.compose.runtime.*
 @Composable
 fun StatusScreen() {
     var a :String
-    var percentage by remember{ mutableStateOf(master.soc.value.toInt()?:5) }
+    var percentage by remember{ mutableStateOf(master.soc.value.toIntOrNull()?:5) }
     //LaunchedEffect(lastmessage.value) {
     //    percentage = lastmessage.value.toIntOrNull() ?: percentage
    // }
@@ -57,8 +57,8 @@ val dataList = listOf(
 
 
 val dataListIntro = listOf(
-    Data("Total number of cells", "15", Icons.Outlined.Power),
-    Data("Nominal capacity", "60 Ah", Icons.Outlined.Power))
+    Data("Total number of cells", "15","", Icons.Outlined.Power),
+    Data("Nominal capacity", "60"," Ah" ,Icons.Outlined.Power))
 
 @Composable
 fun updateDataList(dataList: List<Data>) {

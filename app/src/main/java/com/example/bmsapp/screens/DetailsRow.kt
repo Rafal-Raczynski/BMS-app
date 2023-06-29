@@ -101,7 +101,7 @@ fun RowItem(data: Data) {
             )}
 
             Text(
-                text = data.value,
+                text = data.value+data.unit,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.DarkGray,
@@ -147,7 +147,7 @@ fun RowItemNoIcon(data: Data) {
             )
 
             Text(
-                text = data.value,
+                text = data.value+data.unit,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.DarkGray,

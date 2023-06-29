@@ -53,27 +53,27 @@ fun PreviewDetailsScreen() {
 }
 
 val dataList3 = listOf(
-    Data("No. of cells", "5", Icons.Outlined.Power),
-    Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
-    Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull),
-    Data("Energy", "0.5 kWh", Icons.Outlined.Memory),
-    Data("Voltage", "3.27 V", Icons.Outlined.Bolt)
+    Data("No. of cells", "5","", Icons.Outlined.Power),
+    Data("Minimum Voltage", "3.20 V","", Icons.Outlined.Battery1Bar),
+    Data("Maximum Voltage", "3.30 V","", Icons.Outlined.BatteryFull),
+    Data("Energy", "0.5 kWh","", Icons.Outlined.Memory),
+    Data("Voltage", "3.27 V","", Icons.Outlined.Bolt)
 )
 
 val dataList4 = listOf(
-    Data("No. of cells", "5", Icons.Outlined.Power),
-    Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
-    Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull),
-    Data("Energy", "0.48 kWh", Icons.Outlined.Memory),
-    Data("Voltage", "3.20 V", Icons.Outlined.Bolt),
+    Data("No. of cells", "5","", Icons.Outlined.Power),
+    Data("Minimum Voltage", "3.20 V","", Icons.Outlined.Battery1Bar),
+    Data("Maximum Voltage", "3.30 V","", Icons.Outlined.BatteryFull),
+    Data("Energy", "0.48 kWh","", Icons.Outlined.Memory),
+    Data("Voltage", "3.20 V","", Icons.Outlined.Bolt),
 )
 
 val dataList5 = listOf(
-    Data("No. of cells", "5", Icons.Outlined.Power),
-    Data("Minimum Voltage", "3.20 V", Icons.Outlined.Battery1Bar),
-    Data("Maximum Voltage", "3.30 V", Icons.Outlined.BatteryFull),
-    Data("Energy", "0.46 kWh", Icons.Outlined.Memory),
-    Data("Voltage", "3.28 V", Icons.Outlined.Bolt)
+    Data("No. of cells", "5", "",Icons.Outlined.Power),
+    Data("Minimum Voltage", "3.20 V","", Icons.Outlined.Battery1Bar),
+    Data("Maximum Voltage", "3.30 V","", Icons.Outlined.BatteryFull),
+    Data("Energy", "0.46 kWh","", Icons.Outlined.Memory),
+    Data("Voltage", "3.28 V","", Icons.Outlined.Bolt)
 )
 @Composable
 fun dropDownDetailsMenu(numBatteries: Int): String {

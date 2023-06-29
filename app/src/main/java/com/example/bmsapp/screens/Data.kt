@@ -12,6 +12,7 @@ import java.util.*
 data class Data(
     var label: String,
     var value: String,
+    var unit: String,
     var icon: ImageVector
 )
 {
@@ -21,17 +22,23 @@ data class Data(
 }
 
 class Master(){
-    val status=Data("Status", "ON", Icons.Outlined.Power)
-    val voltage=Data("Voltage", "a", Icons.Outlined.BatteryChargingFull)
-    val current=Data("Current", "1 A", Icons.Outlined.Bolt)
-    val energy=Data("Energy", "0.5kWh", Icons.Outlined.Memory)
-    val temperature=Data("Temperature", "24°C", Icons.Outlined.Thermostat)
-    val sof=Data("State of Health", "94 %", Icons.Outlined.HealthAndSafety)
-    val soc=Data("State of Charge", "10", Icons.Outlined.HealthAndSafety)
+    val status=Data("Status", "ON"," ", Icons.Outlined.Power)
+    val voltage=Data("Voltage", "a", " V",Icons.Outlined.BatteryChargingFull)
+    val current=Data("Current", "1"," A",Icons.Outlined.Bolt)
+    val energy=Data("Energy", "0.5", " kWh",Icons.Outlined.Memory)
+    val temperature=Data("Temperature", "24"," °C", Icons.Outlined.Thermostat)
+    val sof=Data("State of Health", "94"," %", Icons.Outlined.HealthAndSafety)
+    val soc=Data("State of Charge", "10"," ", Icons.Outlined.HealthAndSafety)
 }
 
 
-
+class Slave() {
+    val cells = Data("No. of cells", "5", "", Icons.Outlined.Power)
+    val minimumvoltage = Data("Minimum Voltage", "3.20 V", "", Icons.Outlined.Battery1Bar)
+    val maximumvoltage = Data("Maximum Voltage", "3.30 V", "", Icons.Outlined.BatteryFull)
+    val energy = Data("Energy", "0.5 kWh", "", Icons.Outlined.Memory)
+    val voltage = Data("Voltage", "3.27 V", "", Icons.Outlined.Bolt)
+}
 
 @Composable
 fun randomFloat(): String {

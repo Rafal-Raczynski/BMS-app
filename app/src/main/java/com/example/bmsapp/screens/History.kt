@@ -30,6 +30,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.coroutines.delay
 
+
 data class BatteryHistoryData(
     val timestamp: Long,
     val voltage: Float,
@@ -38,13 +39,32 @@ data class BatteryHistoryData(
     val soc: Float
 )
 
-var batteryHistoryDataList = listOf(
-    BatteryHistoryData(1623210000, 12.5f, 2.3f, 30.5f, 80.0f),
-    BatteryHistoryData(1623220000, 12.6f, 2.1f, 31.0f, 85.0f),
-    BatteryHistoryData(1623230000, 12.4f, 2.4f, 29.8f, 77.0f),
-    BatteryHistoryData(1623240000, 12.7f, 2.2f, 31.5f, 88.0f),
-    BatteryHistoryData(1623250000, 12.3f, 2.5f, 29.0f, 75.0f)
-)
+//var batteryHistoryDataList = mutableListOf<BatteryHistoryData>()
+val batteryHistoryDataList = mutableListOf<BatteryHistoryData>()
+
+
+
+fun addNewBatteryHistoryData() {
+    val newTimestamp = System.currentTimeMillis()
+
+    val newVoltage = lastmessageVoltagelist.lastOrNull()?:0f
+    val newCurrent = lastmessageCurrentlist.lastOrNull()?:0f
+    val newTemperature = lastmessageTemperaturelist.lastOrNull()?:0f
+    val newSoc = lastmessageSoclist.lastOrNull()?:0f
+
+
+        val newData = BatteryHistoryData(
+            timestamp = newTimestamp,
+            voltage = newVoltage,
+            current = newCurrent,
+            temperature = newTemperature,
+            soc = newSoc
+        )
+
+        //batteryHistoryDataList = batteryHistoryDataList.plus(newData)
+        batteryHistoryDataList.add(newData)
+
+}
 
 @Composable
 fun HistoryScreen() {
@@ -125,6 +145,14 @@ fun HistoryScreen() {
                     fontSize = 16.sp
                 )
             }
+            Button(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .width(200.dp),
+                onClick = { addNewRandomVoltage() }
+            ) {
+                Text(text = "Add Random Voltage", fontSize = 16.sp)
+            }
         }
     }
 
@@ -136,20 +164,7 @@ fun HistoryScreen() {
     }
 }
 
-fun addNewBatteryHistoryData() {
-    val lastData = batteryHistoryDataList.lastOrNull()
-    val newTimestamp = lastData?.timestamp?.plus(1000) ?: System.currentTimeMillis()
 
-    val newData = BatteryHistoryData(
-        timestamp = newTimestamp,
-        voltage = generateRandomFloat(10f, 15f),
-        current = generateRandomFloat(1.5f, 2.5f),
-        temperature = generateRandomFloat(25f, 35f),
-        soc = generateRandomFloat(70f, 90f)
-    )
-
-    batteryHistoryDataList = batteryHistoryDataList.plus(newData)
-}
 
 fun toggleDataSelection(selectedData: SnapshotStateList<Int>, index: Int) {
     if (selectedData.contains(index)) {
@@ -189,7 +204,7 @@ fun createLineChartData(selectedData: List<Int>): LineData {
         lineDataSet.circleRadius = 4f
         lineDataSet.valueTextSize = 10f
         lineDataSet.setDrawValues(false)
-        lineDataSet.setDrawCircles(false)
+        lineDataSet.setDrawCircles(true)
 
         lineDataSets.add(lineDataSet)
     }
@@ -216,13 +231,27 @@ fun getLabelForIndex(index: Int): String {
     }
 }
 
-fun generateRandomFloat(min: Float, max: Float): Float {
-    return (min + (Math.random() * (max - min))).toFloat()
-}
+
 
 @Preview
 @Composable
 fun PreviewHistoryScreen() {
     HistoryScreen()
 }
+fun addNewRandomVoltage() {
+    val min=10.0f
+    val max=15.0f
+    val randomVoltage = (min + (Math.random() * (max - min))).toFloat()
+    lastmessageVoltagelist.add(randomVoltage)
+    lastmessage.value=randomVoltage.toString()
+}
 
+/*fun main() {
+    lastmessageVoltage.add(12.5f)
+    lastmessageCurrent.add(2.3f)
+    lastmessageTemperature.add(30.5f)
+    lastmessageSoc.add(80.0f)
+
+    // Uruchom komponent ekranu historii
+    PreviewHistoryScreen()
+}*/
