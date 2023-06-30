@@ -16,9 +16,9 @@ import androidx.compose.runtime.*
 fun StatusScreen() {
     var a :String
     var percentage by remember{ mutableStateOf(master.soc.value.toIntOrNull()?:5) }
-    //LaunchedEffect(lastmessage.value) {
-    //    percentage = lastmessage.value.toIntOrNull() ?: percentage
-   // }
+    LaunchedEffect(lastmessageSOC.value) {
+        percentage = lastmessageSOC.value.toIntOrNull() ?: percentage
+   }
     //var percentage:Int
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -40,7 +40,10 @@ fun StatusScreen() {
             InfoCardsList(list = dataList)
         }
     }
-   master.voltage.value= lastmessage.value
+    master.voltage.value= lastmessageVoltage.value
+    master.current.value= lastmessageCurrent.value
+    master.soc.value= lastmessageSOC.value
+    master.power.value= lastmessagePower.value
    // master.soc.value= lastmessage.value
 }
 
@@ -53,7 +56,7 @@ fun PreviewBatteryScreen() {
 
 val master=Master()
 val dataList = listOf(
-    master.status,master.voltage,master.current,master.energy,master.temperature,master.sof)
+    master.status,master.voltage,master.current,master.power,master.temperature,master.sof)
 
 
 val dataListIntro = listOf(

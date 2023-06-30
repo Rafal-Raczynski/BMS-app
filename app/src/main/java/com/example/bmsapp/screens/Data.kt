@@ -25,7 +25,7 @@ class Master(){
     val status=Data("Status", "ON"," ", Icons.Outlined.Power)
     val voltage=Data("Voltage", "a", " V",Icons.Outlined.BatteryChargingFull)
     val current=Data("Current", "1"," A",Icons.Outlined.Bolt)
-    val energy=Data("Energy", "0.5", " kWh",Icons.Outlined.Memory)
+    val power=Data("Power", "0.5", " W",Icons.Outlined.Memory)
     val temperature=Data("Temperature", "24"," °C", Icons.Outlined.Thermostat)
     val sof=Data("State of Health", "94"," %", Icons.Outlined.HealthAndSafety)
     val soc=Data("State of Charge", "10"," ", Icons.Outlined.HealthAndSafety)

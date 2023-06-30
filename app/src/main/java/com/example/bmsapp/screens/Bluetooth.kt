@@ -93,11 +93,17 @@ private var outputStream: OutputStream? = null
 private var inputStream: InputStream? = null
 private val deviceAddress = "20:16:06:20:91:40" // Replace with your HC-05 module's address
 val receivedMessages = mutableStateListOf<String>()
+
 var lastmessage = mutableStateOf("no data")
+var lastmessageVoltage = mutableStateOf("no data")
+var lastmessageCurrent = mutableStateOf("no data")
+var lastmessageSOC = mutableStateOf("no data")
+var lastmessagePower = mutableStateOf("no data")
 var lastmessageVoltagelist = mutableListOf<Float>()
 var lastmessageCurrentlist = mutableListOf<Float>()
 var lastmessageTemperaturelist = mutableListOf<Float>()
 var lastmessageSoclist = mutableListOf<Float>()
+
 
 @Composable
 fun BluetoothScreen() {
@@ -179,6 +185,7 @@ private fun startReceivingMessages() {
                 }*/
                 if (trimmedMessage.length == 19 && trimmedMessage.matches(Regex("[0-9A-Fa-f]+")))
                 {
+                    lastmessage.value=trimmedMessage
                     val id = trimmedMessage.substring(0, 3)
                     val hex1 = trimmedMessage.substring(3, 5)
                     val hex2 = trimmedMessage.substring(5, 7)
@@ -188,6 +195,29 @@ private fun startReceivingMessages() {
                     val hex6 = trimmedMessage.substring(13, 15)
                     val hex7 = trimmedMessage.substring(15, 17)
                     val hex8 = trimmedMessage.substring(17, 19)
+
+                    if(id=="190")
+                    {
+                        val voltagehex=hex8+hex7
+                        val currenthex=hex6+hex5
+                        val SOChex=hex4
+                        val voltagefloat=voltagehex.toInt(16)*0.0625
+                        val currentfloat=currenthex.toInt(16)*0.0625-2048
+                        val powerfloat=voltagefloat*currentfloat
+                        val SOCInt=SOChex.toInt(16)
+                        val SOCfloat=SOChex.toInt(16).toFloat()*1.0
+                        lastmessageVoltage.value=String.format("%.4f",voltagefloat)
+                        lastmessageCurrent.value=String.format("%.4f",currentfloat)
+                        lastmessageSOC.value=SOCInt.toString()
+                        lastmessagePower.value= String.format("%.4f", powerfloat)
+                        lastmessageVoltagelist.add(voltagefloat.toFloat())
+                        lastmessageCurrentlist.add(currentfloat.toFloat())
+                        lastmessageSoclist.add(SOCfloat.toFloat())
+
+
+
+                    }
+
                 }
             }
         } catch (e: IOException) {

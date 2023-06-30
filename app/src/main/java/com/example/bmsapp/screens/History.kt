@@ -145,14 +145,14 @@ fun HistoryScreen() {
                     fontSize = 16.sp
                 )
             }
-            Button(
+            /*Button(
                 modifier = Modifier
                     .padding(8.dp)
                     .width(200.dp),
                 onClick = { addNewRandomVoltage() }
             ) {
                 Text(text = "Add Random Voltage", fontSize = 16.sp)
-            }
+            }*/
         }
     }
 
@@ -242,8 +242,8 @@ fun addNewRandomVoltage() {
     val min=10.0f
     val max=15.0f
     val randomVoltage = (min + (Math.random() * (max - min))).toFloat()
-    lastmessageVoltagelist.add(randomVoltage)
-    lastmessage.value=randomVoltage.toString()
+    //lastmessageVoltagelist.add(randomVoltage)
+    //lastmessage.value=randomVoltage.toString()
 }
 
 /*fun main() {
