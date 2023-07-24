@@ -37,12 +37,32 @@ fun DetailsScreen() {
         }
 
             when (a) {
-                "Bateria1" -> DetailsRowList(list = dataList3)
+                "Bateria1" -> DetailsRowList(list =dataList3)
                 "Bateria2" -> DetailsRowList(list = dataList4)
                 "Bateria3" -> DetailsRowList(list = dataList5)
             }
 
         }
+    lastmessageinterpreter(lastmessage.value)
+     //Slave1.voltage.value=lastmessageSOC.value
+     Slave1.minimumvoltage.value= lastmessageCellmin1voltage.value
+     Slave1.maximumvoltage.value= lastmessageCellmax1voltage.value
+     Slave1.maximumtemp.value= lastmessageCellmax1temp.value
+     Slave1.minimumtemp.value= lastmessageCellmin1temp.value
+     //Slave1.minimumtemp.value= lastmessageCellmin1temp.value
+     //Slave1.maximumtemp.value= lastmessageCellmax1temp.value
+     //Slave1.meanvolt.value= lastmessageCellvoltagemean1.value
+     //Slave1.deltavolt.value= lastmessageCellvoltagedelta1.value
+
+    Slave2.minimumvoltage.value= lastmessageCellmin2voltage.value
+    Slave2.maximumvoltage.value= lastmessageCellmax2voltage.value
+    Slave2.maximumtemp.value= lastmessageCellmax2temp.value
+    Slave2.minimumtemp.value= lastmessageCellmin2temp.value
+    //Slave1.minimumtemp.value= lastmessageCellmin1temp.value
+    //Slave1.maximumtemp.value= lastmessageCellmax1temp.value
+    //Slave2.meanvolt.value= lastmessageCellvoltagemean2.value
+   // Slave2.deltavolt.value= lastmessageCellvoltagedelta2.value
+
     }
 
 
@@ -51,22 +71,18 @@ fun DetailsScreen() {
 fun PreviewDetailsScreen() {
     StatusScreen()
 }
-
+val Slave1=Slave()
+val Slave2=Slave()
 val dataList3 = listOf(
-    Data("No. of cells", "5","", Icons.Outlined.Power),
-    Data("Minimum Voltage", "3.20 V","", Icons.Outlined.Battery1Bar),
-    Data("Maximum Voltage", "3.30 V","", Icons.Outlined.BatteryFull),
-    Data("Energy", "0.5 kWh","", Icons.Outlined.Memory),
-    Data("Voltage", "3.27 V","", Icons.Outlined.Bolt)
+   Slave1.cells,Slave1.minimumvoltage, Slave1.maximumvoltage,Slave1.minimumtemp,Slave1.maximumtemp
+    //Slave1.meanvolt, Slave1.deltavolt
 )
 
 val dataList4 = listOf(
-    Data("No. of cells", "5","", Icons.Outlined.Power),
-    Data("Minimum Voltage", "3.20 V","", Icons.Outlined.Battery1Bar),
-    Data("Maximum Voltage", "3.30 V","", Icons.Outlined.BatteryFull),
-    Data("Energy", "0.48 kWh","", Icons.Outlined.Memory),
-    Data("Voltage", "3.20 V","", Icons.Outlined.Bolt),
+    Slave2.cells,Slave2.minimumvoltage, Slave2.maximumvoltage,Slave2.minimumtemp,Slave2.maximumtemp
+    //Slave2.meanvolt, Slave2.deltavolt
 )
+
 
 val dataList5 = listOf(
     Data("No. of cells", "5", "",Icons.Outlined.Power),

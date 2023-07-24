@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -11,13 +12,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.bmsapp.screens.generateString
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -41,6 +45,7 @@ fun BottomBar(navController: NavHostController) {
         BottomBarScreen.Bluetooth,
         BottomBarScreen.Status,
         BottomBarScreen.Details,
+        BottomBarScreen.Error,
         BottomBarScreen.History,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -70,7 +75,7 @@ fun RowScope.AddItem(
 ) {
     BottomNavigationItem(
         label = {
-            Text(text = screen.title)
+            Text(text = screen.title, style = TextStyle(fontSize = 13.sp))
         },
         icon = {
             Icon(

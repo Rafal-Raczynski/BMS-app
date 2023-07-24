@@ -45,10 +45,10 @@ fun InfoCardsList(list: List<Data>) {
 @Composable
 fun InfoItem(data: Data) {
     var Kolor=Color.White
-    if(data.label=="Voltage" && data.value<"15")
-    {
-        Kolor=Color.Red
-    }
+    //if(data.label=="Voltage" && data.value<"15")
+    //{
+    //    Kolor=Color.Red
+    // }
     Card(
         elevation = 3.dp,
         shape = RoundedCornerShape(15.dp),

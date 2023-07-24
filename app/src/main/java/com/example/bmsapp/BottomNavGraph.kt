@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.bmsapp.screens.BluetoothScreen
 import com.example.bmsapp.screens.DetailsScreen
+import com.example.bmsapp.screens.ErrorScreen
 import com.example.bmsapp.screens.StatusScreen
 import com.example.bmsapp.screens.HistoryScreen
 
@@ -27,6 +28,9 @@ fun BottomNavGraph( navController: NavHostController) {
         }
         composable(route = BottomBarScreen.History.route) {
             HistoryScreen()
+        }
+        composable(route = BottomBarScreen.Error.route) {
+            ErrorScreen()
         }
 
     }

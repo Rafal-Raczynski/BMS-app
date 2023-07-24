@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.bmsapp.screens.generateString
 import com.example.bmsapp.ui.theme.BMSappTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,8 +24,10 @@ class MainActivity : ComponentActivity() {
                 //)
                 //{
                     MainScreen()
+
                 //}
             }
         }
+
     }
 }

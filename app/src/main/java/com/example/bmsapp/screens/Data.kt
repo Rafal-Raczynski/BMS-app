@@ -29,15 +29,19 @@ class Master(){
     val temperature=Data("Temperature", "24"," °C", Icons.Outlined.Thermostat)
     val sof=Data("State of Health", "94"," %", Icons.Outlined.HealthAndSafety)
     val soc=Data("State of Charge", "10"," ", Icons.Outlined.HealthAndSafety)
+    val cellvolt=Data("Cell Voltage", "a", " V",Icons.Outlined.BatteryChargingFull)
+    val celltemp=Data("Cell Temp", "1"," °C",Icons.Outlined.Thermostat)
 }
 
 
 class Slave() {
     val cells = Data("No. of cells", "5", "", Icons.Outlined.Power)
-    val minimumvoltage = Data("Minimum Voltage", "3.20 V", "", Icons.Outlined.Battery1Bar)
-    val maximumvoltage = Data("Maximum Voltage", "3.30 V", "", Icons.Outlined.BatteryFull)
-    val energy = Data("Energy", "0.5 kWh", "", Icons.Outlined.Memory)
-    val voltage = Data("Voltage", "3.27 V", "", Icons.Outlined.Bolt)
+    val minimumvoltage = Data("Minimum Voltage", "3.20 mV", " mV", Icons.Outlined.Battery1Bar)
+    val maximumvoltage = Data("Maximum Voltage", "3.30 mV", " mV", Icons.Outlined.BatteryFull)
+    val minimumtemp = Data("Minimum Temp", "0.5 kWh", " °C", Icons.Outlined.AcUnit)
+    val maximumtemp = Data("Maximum Temp", "3.27 V", " °C", Icons.Outlined.LocalFireDepartment)
+    //val deltavolt = Data("Delta Temp", "3.27 V", "mV", Icons.Outlined.BatteryFull)
+    //val meanvolt = Data("Mean Temp", "3.27 V", "mV", Icons.Outlined.BatteryFull)
 }
 
 @Composable

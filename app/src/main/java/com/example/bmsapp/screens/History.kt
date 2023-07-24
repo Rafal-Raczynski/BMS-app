@@ -46,7 +46,6 @@ val batteryHistoryDataList = mutableListOf<BatteryHistoryData>()
 
 fun addNewBatteryHistoryData() {
     val newTimestamp = System.currentTimeMillis()
-
     val newVoltage = lastmessageVoltagelist.lastOrNull()?:0f
     val newCurrent = lastmessageCurrentlist.lastOrNull()?:0f
     val newTemperature = lastmessageTemperaturelist.lastOrNull()?:0f

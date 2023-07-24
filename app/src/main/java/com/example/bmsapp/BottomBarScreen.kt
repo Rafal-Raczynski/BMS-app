@@ -3,6 +3,7 @@ package com.example.bmsapp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BluetoothSearching
 import androidx.compose.material.icons.filled.BatteryUnknown
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.ViewHeadline
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -34,6 +35,12 @@ sealed class BottomBarScreen(
         route = "history",
         title = "History",
         icon = Icons.Default.History
+    )
+
+    object Error : BottomBarScreen(
+        route = "error",
+        title = "Error",
+        icon = Icons.Default.Error
     )
 
 }
