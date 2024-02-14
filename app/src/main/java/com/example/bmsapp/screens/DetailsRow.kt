@@ -23,7 +23,7 @@ import com.example.bmsapp.ui.theme.lightgreen
 @Composable
 fun DetailsRowList(list: List<Data>) {
     LazyColumn(
-        //columns = GridCells.Fixed(3),
+        //columns = GridCells.Fixed(3),wd
         modifier = Modifier
             .padding(10.dp)
         //.height(600.dp)
