@@ -28,7 +28,7 @@ fun DetailsScreen() {
     var percentage:Int
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
-        a = dropDownDetailsMenu(2)
+        a = dropDownDetailsMenu(1)
         percentage = when (a) {
             "Bateria1" -> 10
             "Bateria2" -> 70
@@ -43,7 +43,7 @@ fun DetailsScreen() {
             }
 
         }
-    lastmessageinterpreter(lastmessage.value)
+     //lastmessageinterpreter(lastmessage.value)
      //Slave1.voltage.value=lastmessageSOC.value
      Slave1.minimumvoltage.value= lastmessageCellmin1voltage.value
      Slave1.maximumvoltage.value= lastmessageCellmax1voltage.value
@@ -52,7 +52,16 @@ fun DetailsScreen() {
      //Slave1.minimumtemp.value= lastmessageCellmin1temp.value
      //Slave1.maximumtemp.value= lastmessageCellmax1temp.value
      //Slave1.meanvolt.value= lastmessageCellvoltagemean1.value
-     //Slave1.deltavolt.value= lastmessageCellvoltagedelta1.value
+    if(Slave1.maximumvoltage.value!="no data"&&Slave1.minimumvoltage.value!="no data") {
+        val float1 =
+            lastmessageCellmax1voltage.value.toFloat() - lastmessageCellmin1voltage.value.toFloat()
+        Slave1.deltavolt.value=String.format("%.1f", float1).replace(',', '.')
+
+    }
+    else
+    {
+        Slave1.deltavolt.value="no data"
+    }
 
     Slave2.minimumvoltage.value= lastmessageCellmin2voltage.value
     Slave2.maximumvoltage.value= lastmessageCellmax2voltage.value
@@ -61,8 +70,16 @@ fun DetailsScreen() {
     //Slave1.minimumtemp.value= lastmessageCellmin1temp.value
     //Slave1.maximumtemp.value= lastmessageCellmax1temp.value
     //Slave2.meanvolt.value= lastmessageCellvoltagemean2.value
-   // Slave2.deltavolt.value= lastmessageCellvoltagedelta2.value
-
+    if(Slave2.maximumvoltage.value!="no data"&&Slave2.minimumvoltage.value!="no data") {
+        val float2 =
+            (lastmessageCellmax2voltage.value.toFloat() - lastmessageCellmin2voltage.value.toFloat()).toString()
+        Slave2.deltavolt.value=String.format("%.1f", float2).replace(',', '.')
+        //Slave1.deltavolt.value=lastmessageCellmax2temp.value.toFloat().toString()
+    }
+    else
+    {
+        Slave2.deltavolt.value="no data"
+    }
     }
 
 
@@ -74,13 +91,13 @@ fun PreviewDetailsScreen() {
 val Slave1=Slave()
 val Slave2=Slave()
 val dataList3 = listOf(
-   Slave1.cells,Slave1.minimumvoltage, Slave1.maximumvoltage,Slave1.minimumtemp,Slave1.maximumtemp
-    //Slave1.meanvolt, Slave1.deltavolt
+   Slave1.cells,Slave1.minimumvoltage, Slave1.maximumvoltage,Slave1.minimumtemp,Slave1.maximumtemp,
+     Slave1.deltavolt
 )
 
 val dataList4 = listOf(
-    Slave2.cells,Slave2.minimumvoltage, Slave2.maximumvoltage,Slave2.minimumtemp,Slave2.maximumtemp
-    //Slave2.meanvolt, Slave2.deltavolt
+    Slave2.cells,Slave2.minimumvoltage, Slave2.maximumvoltage,Slave2.minimumtemp,Slave2.maximumtemp,
+     Slave2.deltavolt
 )
 
 
@@ -95,7 +112,9 @@ val dataList5 = listOf(
 fun dropDownDetailsMenu(numBatteries: Int): String {
     var expanded by remember { mutableStateOf(false) }
     val suggestions = (1..numBatteries).map { "Bateria$it" }
-    var selectedText by rememberSaveable { mutableStateOf(suggestions.firstOrNull() ?: "") }
+    val allSuggestions = suggestions//+listOf("General")
+    //var selectedText by rememberSaveable { mutableStateOf(suggestions.firstOrNull() ?: "") }
+    var selectedText by rememberSaveable { mutableStateOf("Bateria1") }
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
 
     val icon = if (expanded)
@@ -136,7 +155,7 @@ fun dropDownDetailsMenu(numBatteries: Int): String {
                 .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
                 .requiredSizeIn(maxHeight = 200.dp)
         ) {
-            suggestions.forEach { label ->
+            allSuggestions.forEach { label ->
                 DropdownMenuItem(onClick = {
                     selectedText = label
                     expanded = false

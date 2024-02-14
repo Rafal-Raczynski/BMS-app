@@ -64,7 +64,7 @@ fun ErrorScreen() {
 
 
             //HW_compatibility_error.value=bin7[6].toString()
-            //SYNC_lost_error.value=bin6[0].toString()
+
 
             //RXPDO1_lost_error.value=bin6[1].toString()
 

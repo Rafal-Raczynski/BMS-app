@@ -107,6 +107,8 @@ var lastmessageVoltagelist = mutableListOf<Float>()
 var lastmessageCurrentlist = mutableListOf<Float>()
 var lastmessageTemperaturelist = mutableListOf<Float>()
 var lastmessageSoclist = mutableListOf<Float>()
+
+
 val IBB_voltage_supply_error=mutableStateOf("0")
 val Cell_delta_voltage_error=mutableStateOf("0")
 val Cell_max_temperature_error=mutableStateOf("0")
@@ -122,6 +124,8 @@ var lastmessageStringmin=mutableStateOf("no data")
 var lastmessageCellmin=mutableStateOf("no data")
 var lastmessageCellmin1voltage=mutableStateOf("no data")
 var lastmessageCellmin2voltage=mutableStateOf("no data")
+var lastmessageCellminvoltage=mutableStateOf("no data")
+var lastmessageMinVoltagelist = mutableListOf<Float>()
 var lastmessageCellvoltagemean1=mutableStateOf("no data")
 var lastmessageCellvoltagemean2=mutableStateOf("no data")
 var lastmessageCellvoltagemean=mutableStateOf("no data")
@@ -133,6 +137,8 @@ var lastmessagecelltemp=mutableStateOf("no data")
 var lastmessageBlockmax=mutableStateOf("no data")
 var lastmessageStringmax=mutableStateOf("no data")
 var lastmessageCellmax=mutableStateOf("no data")
+var lastmessageCellmaxvoltage=mutableStateOf("no data")
+var lastmessageMaxVoltagelist = mutableListOf<Float>()
 var lastmessageCellmax1voltage=mutableStateOf("no data")
 var lastmessageCellmax2voltage=mutableStateOf("no data")
 var lastmessageCellvoltagedelta1=mutableStateOf("no data")
@@ -143,6 +149,7 @@ var lastmessageAFEtempmax=mutableStateOf("no data")
 var lastmessageBlockTmax=mutableStateOf("no data")
 var lastmessageStringTmax=mutableStateOf("no data")
 var lastmessageSensorTmax=mutableStateOf("no data")
+var lastmessageCellmaxtemp=mutableStateOf("no data")
 var lastmessageCellmax1temp=mutableStateOf("no data")
 var lastmessageCellmax2temp=mutableStateOf("no data")
 var lastmessagetemperaturedelta=mutableStateOf("no data")
@@ -171,6 +178,7 @@ val Configuration_sanity_check=mutableStateOf("0")
 var lastmessageBlockTmin=mutableStateOf("no data")
 var lastmessageStringTmin=mutableStateOf("no data")
 var lastmessageSensorTmin=mutableStateOf("no data")
+var lastmessageCellmintemp=mutableStateOf("no data")
 var lastmessageCellmin1temp=mutableStateOf("no data")
 var lastmessageCellmin2temp=mutableStateOf("no data")
 var lastmessagetemperaturemean=mutableStateOf("no data")
@@ -227,23 +235,29 @@ fun BluetoothScreen() {
 
 private fun connect(connectionStatusState: MutableState<String>) {
     GlobalScope.launch(Dispatchers.IO) {
-        while(true) {
-           Thread.sleep(500)
-           // generateString()
-           /* lastmessage.value="4101901010145100010"
-            Thread.sleep(500)
-            lastmessage.value="190a5020000000000ba"
-            Thread.sleep(500)
-            lastmessage.value="390ffff010110ffff1b"
-            Thread.sleep(500)
-            lastmessage.value="2900000010107d85b1a"
-            Thread.sleep(500)
-            lastmessage.value="31061000a0218d89a00"
-            Thread.sleep(500)
-            lastmessage.value="490d4010103f0b09600"
-            Thread.sleep(500)*/
+        /*while(true) {
+          // Thread.sleep(500)
+            //generateString()
+            lastmessage.value="4101801010400000000"
+          //  Thread.sleep(500)
+            lastmessage.value="190ce02ffff1b003d00"
+          //  Thread.sleep(500)
+            lastmessage.value="3904d9201010639011b"
+           // Thread.sleep(500)
+
+            lastmessage.value="290149101010c16921a"
+           // Thread.sleep(500)
+
+            lastmessage.value="3100b00159118000000"
+          //  Thread.sleep(500)
+            lastmessage.value="4901701010118000000"
+            //Thread.sleep(500)
+            lastmessage.value="290148901010c16921a"
+          //  Thread.sleep(500)
+            lastmessage.value="3904d9501010639011b"
+           // Thread.sleep(500)
             // generateString()
-            lastmessage.value="410d40101050c2d9100"
+           /* lastmessage.value="410d40101050c2d9100"
             Thread.sleep(500)
             lastmessage.value="190cd03ffff000007ba"
             Thread.sleep(500)
@@ -253,8 +267,8 @@ private fun connect(connectionStatusState: MutableState<String>) {
             Thread.sleep(500)
             lastmessage.value="3101000ffff19030100"
             Thread.sleep(500)
-            lastmessage.value="490d40101050c2d9100"
-        }
+            lastmessage.value="490d40101050c2d9100"*/
+        }*/
         val device: BluetoothDevice? = bluetoothAdapter?.getRemoteDevice(deviceAddress)
         val uuid: UUID =
             UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // Standard SPP UUID
@@ -304,20 +318,20 @@ private fun startReceivingMessages() {
 
                     if(id=="190")
                     {
-                        val voltagehex=hex1+hex2
-                        val currenthex=hex3+hex4
-                        val SOChex=hex5
-                        val remainingenergyhex= hex6+hex7
+                        val voltagehex=hex2+hex1
+                        val currenthex=hex4+hex3
+                        val SOChex=hex7
+                        val remainingenergyhex= hex6+hex5
                         val voltagefloat=voltagehex.toInt(16)*0.0625
-                        val currentfloat=currenthex.toInt(16)*0.0625-2048
-                        val remainingenergyfloat= remainingenergyhex.toInt(16)
+                        val currentfloat=-(currenthex.toInt(16)*0.0625-4095.9375)
+                        val remainingenergyfloat= remainingenergyhex.toInt(16)*0.1
                         val powerfloat=voltagefloat*currentfloat
                         val SOCInt=SOChex.toInt(16)
                         val SOCfloat=SOChex.toInt(16).toFloat()*1.0
-                        lastmessageVoltage.value=String.format("%.4f",voltagefloat)
-                        lastmessageCurrent.value=String.format("%.4f",currentfloat)
+                        lastmessageVoltage.value=String.format("%.4f",voltagefloat).replace(',', '.')
+                        lastmessageCurrent.value=String.format("%.4f",currentfloat).replace(',', '.')
                         lastmessageSOC.value=SOCInt.toString()
-                        lastmessagePower.value= String.format("%.4f", powerfloat)
+                        lastmessagePower.value= String.format("%.4f", powerfloat).replace(',', '.')
                         lastmessageRemainingEnergy.value=remainingenergyfloat.toString()
                         lastmessageVoltagelist.add(voltagefloat.toFloat())
                         lastmessageCurrentlist.add(currentfloat.toFloat())
@@ -340,12 +354,12 @@ private fun startReceivingMessages() {
                     {
                         val blockminhex=hex4
                         val blockminint=blockminhex.toInt(16)
-                        val cellminvoltagehex= hex1+hex2
+                        val cellminvoltagehex= hex2+hex1
                         val cellminvoltagefloat=cellminvoltagehex.toInt(16)*0.1
-                        val cellvoltagemeanhex= hex6+hex7
+                        val cellvoltagemeanhex= hex7+hex6
                         val cellvoltagemeanfloat=cellvoltagemeanhex.toInt(16)*0.1
                         val balancingtempmaxhex=hex8
-                        val balancingtempmaxfloat=balancingtempmaxhex.toInt(16)-128
+                        val balancingtempmaxfloat=balancingtempmaxhex.toInt(16)
                         val stringminhex=hex5
                         val cellminhex=hex3
                         val stringminint=stringminhex.toInt(16)
@@ -353,23 +367,25 @@ private fun startReceivingMessages() {
                         lastmessageStringmin.value=stringminint.toString()
                         lastmessageCellmin.value=cellminint.toString()
                         lastmessageBlockmin.value=blockminint.toString()
-                        lastmessageCellvoltagemean.value=String.format("%.4f", cellvoltagemeanfloat)
+                        lastmessageCellminvoltage.value=String.format("%.1f", cellminvoltagefloat).replace(',', '.')
+                        lastmessageMinVoltagelist.add(cellminvoltagefloat.toFloat())
+                        lastmessageCellvoltagemean.value=String.format("%.4f", cellvoltagemeanfloat).replace(',', '.')
                         lastmessageBalancingtempmax.value=balancingtempmaxfloat.toString()
                         if (lastmessageBlockmin.value=="1")
                         {
-                            lastmessageCellmin1voltage.value= String.format("%.4f", cellminvoltagefloat)
+                            lastmessageCellmin1voltage.value= String.format("%.1f", cellminvoltagefloat).replace(',', '.')
                             //lastmessageCellvoltagemean1.value=String.format("%.4f", cellvoltagemeanfloat)
                         }
                         else if (lastmessageBlockmin.value=="2")
                         {
-                            lastmessageCellmin2voltage.value= String.format("%.4f", cellminvoltagefloat)
-                           // lastmessageCellvoltagemean2.value=String.format("%.4f", cellvoltagemeanfloat)
+                            lastmessageCellmin2voltage.value= String.format("%.1f", cellminvoltagefloat).replace(',', '.')
+                            // lastmessageCellvoltagemean2.value=String.format("%.4f", cellvoltagemeanfloat)
                         }
                     }
                     if(id=="310")
                     {
-                        val cellvoltagehex= hex3+hex4
-                        val cellvoltagefloat=cellvoltagehex.toInt(16)*0.1
+                        val cellvoltagehex= hex4+hex3
+                        val cellvoltagefloat=cellvoltagehex.toInt(16)*0.1*0.001
                         lastmessagecellvoltage.value=String.format("%.4f", cellvoltagefloat)
 
                         val celltemphex= hex5
@@ -380,30 +396,31 @@ private fun startReceivingMessages() {
                     {
                         val blockmaxhex=hex4
                         val blockmaxint=blockmaxhex.toInt(16)
-                        val cellmaxvoltagehex= hex1+hex2
+                        val cellmaxvoltagehex= hex2+hex1
                         val cellmaxvoltagefloat=cellmaxvoltagehex.toInt(16)*0.1
-                        val cellvoltagedeltahex= hex6+hex7
+                        val cellvoltagedeltahex= hex7+hex6
                         val cellvoltagedeltafloat=cellvoltagedeltahex.toInt(16)*0.1
                         val afetempmaxhex=hex8
-                        val afetempmaxfloat=afetempmaxhex.toInt(16)-128
+                        val afetempmaxfloat=afetempmaxhex.toInt(16)
                         val stringmaxhex=hex5
                         val cellmaxhex=hex3
                         val stringmaxint=stringmaxhex.toInt(16)
                         val cellmaxint=cellmaxhex.toInt(16)
                         lastmessageStringmax.value=stringmaxint.toString()
                         lastmessageCellmax.value=cellmaxint.toString()
-
+                        lastmessageMaxVoltagelist.add(cellmaxvoltagefloat.toFloat())
+                        lastmessageCellmaxvoltage.value=String.format("%.1f", cellmaxvoltagefloat).replace(',', '.')
                         lastmessageBlockmax.value=blockmaxint.toString()
-                        lastmessageCellvoltagedelta.value=String.format("%.4f", cellvoltagedeltafloat)
+                        lastmessageCellvoltagedelta.value=String.format("%.4f", cellvoltagedeltafloat).replace(',', '.')
                         lastmessageAFEtempmax.value=afetempmaxfloat.toString()
                         if (lastmessageBlockmax.value=="1")
                         {
-                            lastmessageCellmax1voltage.value= String.format("%.4f", cellmaxvoltagefloat)
+                            lastmessageCellmax1voltage.value= String.format("%.1f", cellmaxvoltagefloat).replace(',', '.')
                             //lastmessageCellvoltagedelta1.value=String.format("%.4f", cellvoltagedeltafloat)
                         }
                         else if (lastmessageBlockmax.value=="2")
                         {
-                            lastmessageCellmax2voltage.value= String.format("%.4f", cellmaxvoltagefloat)
+                            lastmessageCellmax2voltage.value= String.format("%.1f", cellmaxvoltagefloat).replace(',', '.')
                             //lastmessageCellvoltagedelta2.value=String.format("%.4f", cellvoltagedeltafloat)
                         }
                     }
@@ -413,9 +430,9 @@ private fun startReceivingMessages() {
                         val blockmaxhex=hex3
                         val blockmaxint=blockmaxhex.toInt(16)
                         val cellmaxtemphex= hex1
-                        val cellmaxtempfloat=cellmaxtemphex.toInt(16)*1-128
+                        val cellmaxtempfloat=cellmaxtemphex.toInt(16)*1
                         val temperaturedeltahex=hex5
-                        val temperaturedeltaint=temperaturedeltahex.toInt(16)-128
+                        val temperaturedeltaint=temperaturedeltahex.toInt(16)
 
                         lastmessagetemperaturedelta.value=temperaturedeltaint.toString()
                         lastmessageBlockTmax.value=blockmaxint.toString()
@@ -425,6 +442,7 @@ private fun startReceivingMessages() {
                         val sensormaxint=sensormaxhex.toInt(16)
                         lastmessageStringTmax.value=stringmaxint.toString()
                         lastmessageSensorTmax.value=sensormaxint.toString()
+                        lastmessageCellmaxtemp.value=cellmaxtempfloat.toString()
                         if (lastmessageBlockTmax.value=="1")
                         {
                             lastmessageCellmax1temp.value= cellmaxtempfloat.toString()
@@ -485,9 +503,9 @@ private fun startReceivingMessages() {
                         val blockminhex=hex3
                         val blockminint=blockminhex.toInt(16)
                         val cellmintemphex= hex1
-                        val cellmintempfloat=cellmintemphex.toInt(16)*1-128
+                        val cellmintempfloat=cellmintemphex.toInt(16)*1
                         val temperaturemeanhex=hex5
-                        val temperaturemeanint=temperaturemeanhex.toInt(16)-128
+                        val temperaturemeanint=temperaturemeanhex.toInt(16)
                         lastmessagetemperaturemean.value=temperaturemeanint.toString()
                         lastmessageBlockTmin.value=blockminint.toString()
                         val stringminhex=hex2
@@ -496,6 +514,7 @@ private fun startReceivingMessages() {
                         val sensorminint=sensorminhex.toInt(16)
                         lastmessageStringTmin.value=stringminint.toString()
                         lastmessageSensorTmin.value=sensorminint.toString()
+                        lastmessageCellmintemp.value=cellmintempfloat.toString()
                         if (lastmessageBlockTmin.value=="1")
                         {
                             lastmessageCellmin1temp.value= cellmintempfloat.toString()
@@ -507,7 +526,6 @@ private fun startReceivingMessages() {
                             //lastmessageCellvoltagedelta2.value=String.format("%.4f", cellvoltagedeltafloat)
                         }
                     }
-
 
 
                 }

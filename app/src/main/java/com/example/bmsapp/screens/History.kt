@@ -29,14 +29,51 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.coroutines.delay
+import android.content.Context
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
+
+//import kotlinx.coroutines.flow.internal.NoOpContinuation.context
+//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
+
+object BatteryHistoryDataStorage {
+
+    private const val PREFS_NAME = "battery_history_prefs"
+    private const val KEY_BATTERY_HISTORY = "battery_history_key"
+
+    fun saveBatteryHistoryDataList(context: Context, list: List<BatteryHistoryData>) {
+        val gson = Gson()
+        val jsonString = gson.toJson(list)
+
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putString(KEY_BATTERY_HISTORY, jsonString).apply()
+    }
+
+    fun getBatteryHistoryDataList(context: Context): List<BatteryHistoryData> {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val jsonString = prefs.getString(KEY_BATTERY_HISTORY, null)
+
+        return if (jsonString != null) {
+            val type = object : TypeToken<List<BatteryHistoryData>>() {}.type
+            val gson = Gson()
+            gson.fromJson(jsonString, type)
+        } else {
+            emptyList()
+        }
+    }
+}
 
 
 data class BatteryHistoryData(
     val timestamp: Long,
     val voltage: Float,
     val current: Float,
-    val temperature: Float,
-    val soc: Float
+    val MaxVoltage: Float,
+    val MinVoltage: Float
 )
 
 //var batteryHistoryDataList = mutableListOf<BatteryHistoryData>()
@@ -44,31 +81,45 @@ val batteryHistoryDataList = mutableListOf<BatteryHistoryData>()
 
 
 
-fun addNewBatteryHistoryData() {
+fun addNewBatteryHistoryData(context: Context) {
     val newTimestamp = System.currentTimeMillis()
     val newVoltage = lastmessageVoltagelist.lastOrNull()?:0f
     val newCurrent = lastmessageCurrentlist.lastOrNull()?:0f
-    val newTemperature = lastmessageTemperaturelist.lastOrNull()?:0f
-    val newSoc = lastmessageSoclist.lastOrNull()?:0f
+    val newMaxVoltage = lastmessageMaxVoltagelist.lastOrNull()?:0f
+    val newMinVoltage= lastmessageMinVoltagelist.lastOrNull()?:0f
 
 
-        val newData = BatteryHistoryData(
-            timestamp = newTimestamp,
-            voltage = newVoltage,
-            current = newCurrent,
-            temperature = newTemperature,
-            soc = newSoc
-        )
+    val newData = BatteryHistoryData(
+        timestamp = newTimestamp,
+        voltage = newVoltage,
+        current = newCurrent,
+        MaxVoltage = newMaxVoltage,
+        MinVoltage = newMinVoltage
+    )
 
-        //batteryHistoryDataList = batteryHistoryDataList.plus(newData)
-        batteryHistoryDataList.add(newData)
-
+    //batteryHistoryDataList = batteryHistoryDataList.plus(newData)
+    //BatteryHistoryDataStorage.saveBatteryHistoryDataList(this, newData)
+    batteryHistoryDataList.add(newData)
+    BatteryHistoryDataStorage.saveBatteryHistoryDataList(context, batteryHistoryDataList)
 }
 
 @Composable
 fun HistoryScreen() {
+    // val batteryHistorySize = batteryHistoryDataList.size
+
+    //lastmessageinterpreter(lastmessage.value)
+    val batteryHistorySize = batteryHistoryDataList.size
+    val context = LocalContext.current
+    val initialDataLoaded = rememberSaveable { mutableStateOf(false) }
     val showData = remember { mutableStateOf(false) }
     val selectedData = remember { mutableStateListOf<Int>() }
+    var resetButtonClicked by remember { mutableStateOf(false) }
+    val chartData = createLineChartData(selectedData)
+    if (!initialDataLoaded.value) {
+        val initialData = BatteryHistoryDataStorage.getBatteryHistoryDataList(context)
+        batteryHistoryDataList.addAll(initialData)
+        initialDataLoaded.value = true
+    }
 
     Surface(color = MaterialTheme.colors.background) {
         Column(
@@ -79,7 +130,10 @@ fun HistoryScreen() {
             Button(onClick = { showData.value = !showData.value }) {
                 Text(text = if (showData.value) "Hide Data" else "Show Data")
             }
+
             if (showData.value) {
+
+
                 AndroidView(
                     modifier = Modifier
                         .fillMaxSize()
@@ -95,8 +149,17 @@ fun HistoryScreen() {
                             legend.setDrawInside(false)
 
                             // Utwórz dane wykresu
-                            data = createLineChartData(selectedData)
+                            //data=createLineChartData(selectedData)
+                             data = chartData // Use the chartData here
+
+                            invalidate()
+
+
                         }
+                    },update = { chart ->
+
+                    chart.data = chartData // Update the chart with new data when recomposed
+                    chart.invalidate()
                     }
                 )
             }
@@ -129,7 +192,7 @@ fun HistoryScreen() {
                 onClick = { toggleDataSelection(selectedData, 2) }
             ) {
                 Text(
-                    text = if (selectedData.contains(2)) "Remove Temperature" else "Toggle Temperature",
+                    text = if (selectedData.contains(2)) "Remove Max Voltage" else "Toggle Max Voltage",
                     fontSize = 16.sp
                 )
             }
@@ -140,9 +203,17 @@ fun HistoryScreen() {
                 onClick = { toggleDataSelection(selectedData, 3) }
             ) {
                 Text(
-                    text = if (selectedData.contains(3)) "Remove SOC" else "Toggle SOC",
+                    text = if (selectedData.contains(3)) "Remove Min Voltage" else "Toggle Min Voltage",
                     fontSize = 16.sp
                 )
+            }
+            Button(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .width(200.dp),
+                onClick = { resetButtonClicked = true }
+            ) {
+                Text(text = "Reset Data", fontSize = 16.sp, color = Color.Red)
             }
             /*Button(
                 modifier = Modifier
@@ -153,17 +224,29 @@ fun HistoryScreen() {
                 Text(text = "Add Random Voltage", fontSize = 16.sp)
             }*/
         }
-    }
-
-    LaunchedEffect(Unit) {
-        while (true) {
-            delay(1000) // Czekaj 1 sekundę
-            addNewBatteryHistoryData() // Dodaj nowe wartości
+        if (resetButtonClicked) {
+            resetData()
+            resetButtonClicked = false // Reset the state to avoid re-triggering
         }
     }
+    LaunchedEffect(batteryHistorySize) {
+        addNewBatteryHistoryData(context)
+
+    }
+    lastmessageinterpreter(lastmessage.value)
+    /*LaunchedEffect(Unit) {
+          while (true) {
+           delay(1000) // Czekaj 1 sekundę
+            addNewBatteryHistoryData(context) // Dodaj nowe wartości
+        }
+    }*/
 }
-
-
+@Composable
+fun resetData() {
+    val context = LocalContext.current
+    batteryHistoryDataList.clear()
+    BatteryHistoryDataStorage.saveBatteryHistoryDataList(context, batteryHistoryDataList)
+}
 
 fun toggleDataSelection(selectedData: SnapshotStateList<Int>, index: Int) {
     if (selectedData.contains(index)) {
@@ -176,8 +259,8 @@ fun toggleDataSelection(selectedData: SnapshotStateList<Int>, index: Int) {
 val lineColors = mapOf(
     "Voltage" to Color.Red.toArgb(),
     "Current" to Color.Green.toArgb(),
-    "Temperature" to Color.Blue.toArgb(),
-    "SOC" to Color.Magenta.toArgb()
+    "Max Voltage" to Color.Blue.toArgb(),
+    "Min Voltage" to Color.Magenta.toArgb()
 )
 
 fun createLineChartData(selectedData: List<Int>): LineData {
@@ -203,7 +286,7 @@ fun createLineChartData(selectedData: List<Int>): LineData {
         lineDataSet.circleRadius = 4f
         lineDataSet.valueTextSize = 10f
         lineDataSet.setDrawValues(false)
-        lineDataSet.setDrawCircles(true)
+        lineDataSet.setDrawCircles(false)
 
         lineDataSets.add(lineDataSet)
     }
@@ -214,8 +297,8 @@ fun getValueForIndex(data: BatteryHistoryData, index: Int): Float {
     return when (index) {
         0 -> data.voltage
         1 -> data.current
-        2 -> data.temperature
-        3 -> data.soc
+        2 -> data.MaxVoltage
+        3 -> data.MinVoltage
         else -> 0f
     }
 }
@@ -224,8 +307,8 @@ fun getLabelForIndex(index: Int): String {
     return when (index) {
         0 -> "Voltage"
         1 -> "Current"
-        2 -> "Temperature"
-        3 -> "SOC"
+        2 -> "Max Voltage"
+        3 -> "Min Voltage"
         else -> ""
     }
 }
